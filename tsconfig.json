@@ -1,0 +1,63 @@
+{
+  "compilerOptions": {
+    // "baseUrl": "./src",
+    "baseUrl": "./",
+    "paths": {
+      "components/*": ["src/components/*"],
+      "layouts/*": ["src/layouts/*"],
+      "pages/*": ["src/pages/*"],
+      "types/*": ["src/types/*"],
+      "utils/*": ["src/utils/*"],
+      "hooks/*": ["src/hooks/*"],
+      "contexts/*": ["src/contexts/*"],
+      "services/*": ["src/services/*"],
+      "assets/*": ["src/assets/*"],
+      "styles/*": ["src/styles/*"]
+    },
+    // "paths": {
+    //   "*": ["*"],  
+    //   // "*": ["src/*"],
+    //   // "components/*": ["./components/*"],
+    //   // "layouts/*": ["./layouts/*"],
+    //   // "pages/*": ["./pages/*"],
+    //   // "types/*": ["./types/*"],
+    //   // "utils/*": ["./utils/*"],
+    //   // "hooks/*": ["./hooks/*"],
+    //   // "contexts/*": ["./contexts/*"],
+    //   // "services/*": ["./services/*"],
+    //   // "assets/*": ["./assets/*"],
+    //   // "styles/*": ["./styles/*"]
+      
+    // },
+
+    // "paths": {
+    //   "src/*": ["./src/*"],
+    //   "components/*": ["./src/components/*"],
+    //   "layouts/*": ["./src/layouts/*"],
+    //   "pages/*": ["./src/pages/*"],
+    //   "types/*": ["./src/types/*"],
+    //   "utils/*": ["./src/utils/*"],
+    //   "hooks/*": ["./src/hooks/*"],
+    //   "contexts/*": ["./src/contexts/*"],
+    //   "services/*": ["./src/services/*"],
+    //   "assets/*": ["./src/assets/*"],
+    //   "styles/*": ["./src/styles/*"]
+    // },
+    "strict": true,
+    "strictNullChecks": true,
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "jsx": "preserve",
+    "jsxImportSource": "solid-js",
+    "types": ["vite/client"],
+    "noEmit": true,
+    "isolatedModules": true,
+    
+  },
+  // "include": ["./src/*", "./tailwind.config.js","./postcss.config.js"],
+  "include": ["src/**/*", "vite.config.ts", "tailwind.config.js", "postcss.config.js"],
+  "exclude": ["node_modules", "dist"]
+} 
