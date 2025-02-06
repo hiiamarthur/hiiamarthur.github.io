@@ -8,7 +8,30 @@ export default {
     'animate-fade-in-right',
   ],
   theme: {
-    extend: {},
+    extend: {
+      animation: {
+        'grid-flow': 'grid-flow 20s linear infinite',
+        'glow': 'glow 2s ease-in-out infinite alternate',
+        'float': 'float 6s ease-in-out infinite',
+      },
+      keyframes: {
+        'grid-flow': {
+          '0%': { transform: 'translateY(0)' },
+          '100%': { transform: 'translateY(-50%)' }
+        },
+        'glow': {
+          '0%': { textShadow: '0 0 10px #fff, 0 0 20px #fff, 0 0 30px #0ff' },
+          '100%': { textShadow: '0 0 20px #fff, 0 0 30px #0ff, 0 0 40px #0ff' }
+        },
+        'float': {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-20px)' }
+        }
+      },
+      boxShadow: {
+        'neon': '0 0 10px #0ff, 0 0 20px #0ff, 0 0 30px #0ff',
+      },
+    },
   },
   plugins: [
     function({ addUtilities }) {

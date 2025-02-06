@@ -15,11 +15,10 @@ const SciFiTab: Component<SciFiTabProps> = (props) => {
   const [activeTab, setActiveTab] = createSignal(props.defaultTab || props.tabs[0].id);
 
   return (
-    <div class="relative bg-gray-900 p-6 rounded-lg border border-cyan-500/30 shadow-lg animate-glow">
+    <div class="relative bg-gray-900 p-6 rounded-lg border border-cyan-500/30 shadow-lg animate-glow my-5">
       <div class="absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 rounded-lg blur-xl" />
       
-      {/* Tab Headers */}
-      <div class="relative flex gap-4 mb-6 border-b border-cyan-500/30">
+      <div class="relative md:flex gap-4 mb-6 border-b border-cyan-500/30">
         <For each={props.tabs}>
           {(tab) => (
             <button
@@ -40,7 +39,6 @@ const SciFiTab: Component<SciFiTabProps> = (props) => {
         </For>
       </div>
 
-      {/* Tab Content */}
       <div class="relative min-h-[200px]">
         <div class="animate-slide-in">
           {props.tabs.find(tab => tab.id === activeTab())?.content}

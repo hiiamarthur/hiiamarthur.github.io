@@ -13,17 +13,13 @@ type TextTags = Extract<keyof JSX.IntrinsicElements, `h${1 | 2 | 3 | 4 | 5 | 6}`
 
 const Typewriter = (props: TypewriterProps) => {
   const [local, others] = splitProps(props, ['element', 'children', 'speed', 'class']);
-//   const Tag = local.element || 'p'; // Default to <p> if not provided
   const [displayedText, setDisplayedText] = createSignal('');
   let index = 0;
   let interval: NodeJS.Timeout;
   
-//   console.log("local.children", (local.children as HTMLHeadingElement),(local.children as HTMLHeadElement).style);
-  // Extract text from children
   const resolvedChildren = children(() => props.children);
   const firstChild = resolvedChildren() as HTMLElement | undefined;
 
-  // Extract tag name dynamically, default to "p"
   const Tag = (firstChild?.nodeName.toLowerCase() as TextTags) || 'p';
   const text = typeof local.children === 'string' ? local.children : (local.children as any)?.textContent || '';
 

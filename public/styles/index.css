@@ -8,9 +8,9 @@ html {
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+  /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+    sans-serif; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -22,7 +22,7 @@ code {
 
 @font-face {
   font-family: "SpaceAge";
-  src: url("./src/styles/fonts/space_age/space_age.ttf");
+  src: url("./fonts/space_age/space_age.ttf");
 }
 
 body {
@@ -119,6 +119,10 @@ header nav ul li:hover {
 }
 
 .card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* justify-content: space-between; */
   background: rgba(0, 0, 0, 0.8);
   padding: 2rem;
   border-radius: 10px;
@@ -134,12 +138,12 @@ header nav ul li:hover {
 }
 
 .card h3 {
-  font-size: 1.5rem;
+  font-size: 2.5rem;
   color: #00ffcc;
 }
 
 .card p {
-  font-size: 1rem;
+  font-size: 1.8rem;
   margin: 1rem 0;
 }
 

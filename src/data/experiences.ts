@@ -4,8 +4,8 @@ export const experiences: Experience[] = [
   {
     id: '1',
     company: 'IVM Technology Limited',
-    position: 'Senior Software Developer',
-    duration: 'Aug. 2023 - Feb. 2024',
+    position: 'Senior Software Developer -> Analyst Programmer',
+    duration: 'Aug. 2023 - Dec. 2024',
     description: [
       'Developed CMS and Vending POS UI on vending machine using NestJS, Embedded JS (EJS) with HTML, CSS, and jQuery.',
       'Implemented project architectural design, infrastructure, and production development for weight-oriented vending machine with MSSQL as database, Next.js as web server with HTTPS API, Flutter as client interface with Java + Kotlin connecting signal hardware with Android, and Socket.IO for intra-communication.',
@@ -19,18 +19,6 @@ export const experiences: Experience[] = [
   },
   {
     id: '2',
-    company: 'IVM Technology Limited',
-    position: 'Analyst Programmer',
-    duration: 'Feb. 2024 - Dec. 2024',
-    description: [
-      'Continued development and support for vending POS UI and ERP systems.',
-      'Enhanced API linkages and optimized intra-communication workflows.',
-      'Improved system architecture and performance tuning.'
-    ],
-    technologies: ['NestJS', 'EJS', 'Next.js', 'Flutter', 'C#', 'MSSQL', 'AWS', 'GitHub Actions', 'Redis', 'SQLite', 'MQTT']
-  },
-  {
-    id: '3',
     company: 'Makeitfun Limited',
     position: 'Software Developer',
     duration: 'Jul. 2022 - Aug. 2023',
@@ -44,7 +32,7 @@ export const experiences: Experience[] = [
     technologies: ['React', 'Next.js', 'Flutter', 'Express', 'Strapi', 'MongoDB', 'PostgreSQL', 'Docker', 'Kubernetes', 'GitLab', 'Erlang', 'Elixir', 'Unity', 'C#', 'WebGL', 'PlayCanvas']
   },
   {
-    id: '4',
+    id: '3',
     company: 'Flexsystem Limited',
     position: 'Programmer',
     duration: 'Jul. 2021 - Jul. 2022',
@@ -56,7 +44,7 @@ export const experiences: Experience[] = [
     technologies: ['React', 'C#', 'ISAM DB', 'Jest', 'Selenium', 'Playwright']
   },
   {
-    id: '5',
+    id: '4',
     company: 'Excohk Limited',
     position: 'Full Stack Developer',
     duration: 'Dec. 2020 - Jul. 2021',
@@ -67,7 +55,7 @@ export const experiences: Experience[] = [
     technologies: ['React Native', 'Expo', 'Java EE', 'DynamoDB', 'Firebase']
   },
   {
-    id: '6',
+    id: '5',
     company: 'East Technology Limited',
     position: 'Full Stack Developer (Internship)',
     duration: 'Jun. 2020 - Sep. 2020',
@@ -78,7 +66,7 @@ export const experiences: Experience[] = [
     technologies: ['PHP', 'jQuery', 'JavaScript', 'Apache', 'phpMyAdmin']
   },
   {
-    id: '7',
+    id: '6',
     company: 'Youyu Finance Technology Limited',
     position: 'Backend Developer (Internship)',
     duration: 'Jun. 2019 - Aug. 2019',

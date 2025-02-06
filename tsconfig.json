@@ -12,7 +12,7 @@
       "contexts/*": ["src/contexts/*"],
       "services/*": ["src/services/*"],
       "assets/*": ["src/assets/*"],
-      "styles/*": ["src/styles/*"]
+      // "styles/*": ["../src/styles/*"]
     },
     // "paths": {
     //   "*": ["*"],  

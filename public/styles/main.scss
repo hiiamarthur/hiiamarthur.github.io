@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
 // @import "tailwindcss/preflight";
 // @import "tailwindcss/utilities";
 
@@ -31,7 +33,7 @@
 
 body {
   margin: 0;
-  font-family: system-ui, -apple-system, sans-serif;
+  // font-family: system-ui, -apple-system, sans-serif;
   background-color: var(--background-color);
   color: var(--text-color);
 }
@@ -64,23 +66,54 @@ body {
   }
 }
 
+.animate-fade-in-left {
+  opacity: 0;
+  animation: fadeInLeft 0.5s ease-out forwards;
+}
+
+.animate-fade-in-right {
+  opacity: 0;
+  animation: fadeInRight 0.5s ease-out forwards;
+}
+
+.animate-fade-in-up {
+  opacity: 0;
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+
+.animate-fade-in-down {
+  opacity: 0;
+  animation: fadeInDown 0.5s ease-out forwards;
+}
+
 .experience-card {
   padding: 1.5rem;
   border-radius: 0.5rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  text-align: start;
 
   h3 {
+    font-size: 3.5rem;
     margin: 0 0 0.5rem;
-    color: var(--primary-color);
+    // color: var(--primary-color);
+    font-style: italic;
+    
+    font-weight: 700;
   }
 
   h4 {
     margin: 0 0 1rem;
+    font-size: 2.5rem;
+  }
+
+  p {
+    font-size: 1.5rem;
+    
   }
 
   .duration {
-    color: #64748b;
-    font-size: 0.9rem;
+    color: #e2e8f0;
+    font-size: 1.1rem;
   }
 
   .tech-tag {
@@ -89,7 +122,17 @@ body {
     margin: 0.25rem;
     background-color: #e2e8f0;
     border-radius: 1rem;
-    font-size: 0.875rem;
+    font-size: 1rem;
+    color: #020617;
+    font-weight: 700;
+  }
+
+  li {
+    list-style-type: disc;
+    margin-left: 1.25rem;
+    font-size: 1.5rem;
+    line-height: 1.5;
+    margin-bottom: 0.5rem;
   }
 }
 

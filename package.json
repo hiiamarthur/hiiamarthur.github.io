@@ -25,6 +25,7 @@
     "@solidjs/router": "^0.15.3",
     "@tailwindcss/nesting": "^0.0.0-insiders.565cd3e",
     "solid-app-router": "^0.4.2",
+    "solid-icons": "^1.1.0",
     "solid-js": "^1.9.4",
     "solid-spring": "^0.0.7",
     "solid-styled-components": "^0.28.5",

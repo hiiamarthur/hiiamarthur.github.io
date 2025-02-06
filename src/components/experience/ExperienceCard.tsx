@@ -8,18 +8,34 @@ interface Props {
 const ExperienceCard: Component<Props> = (props) => {
   return (
     <div class="experience-card">
-      <h3>{props.experience.company}</h3>
-      <h4>{props.experience.position}</h4>
-      <p class="duration">{props.experience.duration}</p>
+      <h3 class="animate-fade-in-left">{props.experience.company}</h3>
+      <h4 class="animate-fade-in-right">{props.experience.position}</h4>
+      <p class="duration animate-fade-in-right">{props.experience.duration}</p>
       <ul>
         <For each={props.experience.description}>
-          {(item) => <li>{item}</li>}
+          {(item, index) => (
+            <li 
+              class="animate-fade-in-up" 
+              style={{ 
+                "animation-delay": `${(index() * 0.2) + 0.5}s`
+              }}
+            >
+              {item}
+            </li>
+          )}
         </For>
       </ul>
-      <div class="technologies">
+      <div class="technologies ">
         <For each={props.experience.technologies}>
-          {(tech) => (
-            <span class="tech-tag">{tech}</span>
+          {(tech, index) => (
+            <span 
+              class="tech-tag animate-fade-in-up"
+              style={{ 
+                "animation-delay": `${(index() * 0.1) + 1.2}s`
+              }}
+            >
+              {tech}
+            </span>
           )}
         </For>
       </div>
