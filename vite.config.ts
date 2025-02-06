@@ -10,6 +10,7 @@ import { fileURLToPath } from 'url';
 
 export default defineConfig({
   plugins: [solidPlugin()],
+  base: '/profolio/',
   server: {
     port: 3000,
   },
