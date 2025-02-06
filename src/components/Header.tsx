@@ -10,7 +10,9 @@ const Header: Component = () => {
     e.preventDefault();
     
     if (path.includes('.pdf')) {
-      window.open(path, '_blank');
+      const basePath = import.meta.env.BASE_URL || '';
+      const pdfPath = `${basePath}${path.startsWith('/') ? path.slice(1) : path}`;
+      window.open(pdfPath, '_blank');
       setIsMenuOpen(false);
       return;
     }
