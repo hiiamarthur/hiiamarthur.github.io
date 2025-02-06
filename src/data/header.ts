@@ -7,6 +7,6 @@ export const header = {
         { id: 3, label: 'Experience', path: '#experience' },
         { id: 4, label: 'Projects', path: '#projects' },
         { id: 5, label: 'Contact', path: '#contact' },
-        { id: 6, label: 'Resume', path: '/public/resume.pdf' }
+        { id: 6, label: 'Resume', path: 'https://hiiamarthur.github.io/profolio/files/resume.pdf' }
       ]
 }
