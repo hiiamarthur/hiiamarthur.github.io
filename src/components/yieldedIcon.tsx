@@ -2,7 +2,6 @@ import { Component } from "solid-js";
 import * as simpleIcons from "simple-icons";
 import * as featherIcons from "feather-icons";
 import { si1password as PW, SimpleIcon } from "simple-icons";
-import JavaIcon from '../assets/java.svg';
 interface DynamicSimpleIconProps {
   keyword: string;
   size?: number;
@@ -102,7 +101,7 @@ const YieldedIcon: Component<DynamicSimpleIconProps> = (props) => {
 
   if(!icon && props.keyword.toLowerCase().includes("java")){
     
-    icon = <JavaIcon/>
+    icon = simpleIcons[iconKey];
   }
 
   // If still no match, find the closest match
