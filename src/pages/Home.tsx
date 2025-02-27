@@ -157,8 +157,8 @@ const Home: Component = () => {
           ))}
         </div>
       </section>
-
-      <section class="hero min-h-screen flex-col items-center justify-center relative overflow-hidden">
+      <a href="#contact"></a>
+      <section id="contact" class="hero min-h-screen flex-col items-center justify-center relative overflow-hidden">
         <div class="z-10 w-full max-w-4xl mx-auto">
           <h1 class=" mb-12">Contact</h1>
 
