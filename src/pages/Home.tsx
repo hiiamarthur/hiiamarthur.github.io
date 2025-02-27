@@ -44,7 +44,7 @@ const Home: Component = () => {
         <div class="absolute inset-0 bg-grid-pattern opacity-10 animate-grid-flow"></div>
         <div class="z-10">
           <h1>About Me</h1>
-          <div class="id-card relative max-w-[300px] mx-auto my-10 p-8 bg-black/30 backdrop-blur-md rounded-lg border border-cyan-500/30 shadow-neon">
+          <div class="id-card relative max-w-[300px] mx-auto my-6 p-8 bg-black/30 backdrop-blur-md rounded-lg border border-cyan-500/30 shadow-neon">
             <div class="absolute top-0 left-0 w-20 h-20 border-t-2 border-l-2 border-cyan-500 rounded-tl-lg"></div>
             <div class="absolute top-0 right-0 w-20 h-20 border-t-2 border-r-2 border-cyan-500 rounded-tr-lg"></div>
             <div class="absolute bottom-0 left-0 w-20 h-20 border-b-2 border-l-2 border-cyan-500 rounded-bl-lg"></div>
@@ -53,31 +53,36 @@ const Home: Component = () => {
             <div class="flex-col md:flex-row gap-8 items-end justify-center">
               <img
                 src="/images/photo.png"
-                alt="Me"
+                alt="Arthur"
                 class="w-full rounded-lg animate-float shadow-neon"
               />
 
-              <div class="w-full mx-auto my-8">
-                <div class="mb-4 text-cyan-500 text-sm tracking-wider">
+              <div class="w-full mx-auto mt-4">
+                <div class="mb-2 text-cyan-500 text-sm tracking-wider">
                   ID: ART-HUR
                 </div>
                 <p class="text-lg leading-relaxed animate-fade-in">
-                  A full-stack developer who is seeking for more learning
-                  opportunities in the IT industry to enhance personal values
-                  gained through project and social experiences. My believe is
-                  that maintaining competitiveness is important via passionate
-                  about everything happend around the world.
+                  A Full Stack Developer seeking new learning opportunities to
+                  enhance technical and leadership skills. Experienced in
+                  complex projects and collaborating across teams, with a strong
+                  ability to quickly adapt to new environments and technologies.
+                  Effective communicator and problem solver with an optimistic
+                  outlook on challenges.
                 </p>
-                <div class="mt-4 grid grid-cols-2 gap-4 text-sm">
+                <div class="mt-2 grid grid-cols-2 gap-4 text-xl">
                   <div class="stats-item">
                     <div class="text-cyan-500">Experience</div>
-                    <div>4+ Years</div>
+                    <div>5+ Years</div>
                   </div>
                   <div class="stats-item">
                     <div class="text-cyan-500">Education</div>
                     <div>Bsc. Computer Science in CUHK</div>
                   </div>
                 </div>
+                <div class="stats-item text-xl mt-2">
+                    <div class="text-cyan-500">Certificate</div>
+                    <div>AWS Solutions Architect Associate(In Progress)</div>
+                  </div>
               </div>
             </div>
           </div>
@@ -173,10 +178,10 @@ const Home: Component = () => {
                         navigator.userAgent
                       )
                         ? styles.link + "card-content"
-                        : " hidden"
-                    + ""}
+                        : " hidden" + ""
+                    }
                   >
-                    <FaSolidPhone size={21}  />
+                    <FaSolidPhone size={21} />
                   </a>
                 </div>
               </div>
@@ -187,9 +192,9 @@ const Home: Component = () => {
               onClick={() => handleEmailClick("pingtunglau@gmail.com")}
             >
               <a
-              target="_blank"
+                target="_blank"
                 onClick={() => handleEmailClick("pingtunglau@gmail.com")}
-                class={styles.link+ "card-content cursor-pointer"}
+                class={styles.link + "card-content cursor-pointer"}
               >
                 <div class="icon-wrapper">
                   <FaSolidEnvelope size={21} />
