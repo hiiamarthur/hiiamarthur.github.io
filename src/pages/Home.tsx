@@ -8,6 +8,7 @@ import { experiences } from "../data/experiences";
 import ExperienceCard from "../components/experience/ExperienceCard";
 import { projects } from "../data/projects";
 import { FaBrandsGithub, FaSolidEnvelope, FaSolidPhone } from "solid-icons/fa";
+import YieldedIcon from "../components/yieldedIcon";
 const Home: Component = () => {
   const [isVisible, setIsVisible] = createSignal(false);
 
@@ -80,9 +81,9 @@ const Home: Component = () => {
                   </div>
                 </div>
                 <div class="stats-item text-xl mt-2">
-                    <div class="text-cyan-500">Certificate</div>
-                    <div>AWS Solutions Architect Associate(In Progress)</div>
-                  </div>
+                  <div class="text-cyan-500">Certificate</div>
+                  <div>AWS Solutions Architect Associate(In Progress)</div>
+                </div>
               </div>
             </div>
           </div>
@@ -129,7 +130,22 @@ const Home: Component = () => {
               <div class="card-content">
                 <h3>{project.name}</h3>
                 <p>{project.description}</p>
-
+                {project.technologies && (
+                  <div class="inline-flex flex-wrap gap-2">
+                    {project.technologies.map((technology, index) => (
+                      <span
+                        class="animate-fade-in-up"
+                        style={{
+                          "animation-delay": `${index * 0.1 + 1.2}s`,
+                        }}
+                      >
+                        <YieldedIcon keyword={technology}>
+                          {technology}
+                        </YieldedIcon>
+                      </span>
+                    ))}
+                  </div>
+                )}
                 <div class="flex items-center gap-2 justify-center">
                   {project.link !== "Coming Soon" ? (
                     <a
@@ -158,7 +174,10 @@ const Home: Component = () => {
         </div>
       </section>
       <a href="#contact"></a>
-      <section id="contact" class="hero min-h-screen flex-col items-center justify-center relative overflow-hidden">
+      <section
+        id="contact"
+        class="hero min-h-screen flex-col items-center justify-center relative overflow-hidden"
+      >
         <div class="z-10 w-full max-w-4xl mx-auto">
           <h1 class=" mb-12">Contact</h1>
 

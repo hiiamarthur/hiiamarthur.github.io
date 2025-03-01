@@ -116,16 +116,7 @@ body {
     font-size: 1.1rem;
   }
 
-  .tech-tag {
-    display: inline-block;
-    padding: 0.25rem 0.75rem;
-    margin: 0.25rem;
-    // background-color: #e2e8f0;
-    border-radius: 1rem;
-    font-size: 1rem;
-    color: #020617;
-    font-weight: 700;
-  }
+  
 
   li {
     list-style-type: disc;
@@ -134,6 +125,17 @@ body {
     line-height: 1.5;
     margin-bottom: 0.5rem;
   }
+}
+
+.tech-tag {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  margin: 0.25rem;
+  // background-color: #e2e8f0;
+  border-radius: 1rem;
+  font-size: 1rem;
+  color: #020617;
+  font-weight: 700;
 }
 
 .experience-grid {
