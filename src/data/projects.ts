@@ -6,6 +6,7 @@ export const projects = [
       "A mobile application that allows users to plan their trips using AI based on their preferences.",
     link: "Coming Soon",
     image: "/images/reals.png",
+    github: "https://github.com/reals-itinerary-planner",
     technologies: ["ChatGPT", "FastAPI", "Python", "Flutter", "PostgreSQL"],
   },
   {

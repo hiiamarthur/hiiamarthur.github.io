@@ -93,7 +93,9 @@ const YieldedIcon: Component<DynamicSimpleIconProps> = (props) => {
   if (
     !icon &&
     (props.keyword.toLowerCase().includes("db") ||
-      props.keyword.toLowerCase().includes("database"))
+      props.keyword.toLowerCase().includes("database")
+    || props.keyword.toLowerCase()== "mssql"
+    )
   ) {
     iconKey = "siDatabase" as keyof typeof simpleIcons;
     icon = simpleIcons[iconKey];
