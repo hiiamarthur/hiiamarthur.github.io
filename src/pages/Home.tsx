@@ -45,7 +45,7 @@ const Home: Component = () => {
         <div class="absolute inset-0 bg-grid-pattern opacity-10 animate-grid-flow"></div>
         <div class="z-10">
           <h1>About Me</h1>
-          <div class="id-card relative max-w-[300px] mx-auto my-6 p-8 bg-black/30 backdrop-blur-md rounded-lg border border-cyan-500/30 shadow-neon">
+          <div class="id-card relative max-w-[600px] mx-auto my-6 p-8 bg-black/30 backdrop-blur-md rounded-lg border border-cyan-500/30 shadow-neon">
             <div class="absolute top-0 left-0 w-20 h-20 border-t-2 border-l-2 border-cyan-500 rounded-tl-lg"></div>
             <div class="absolute top-0 right-0 w-20 h-20 border-t-2 border-r-2 border-cyan-500 rounded-tr-lg"></div>
             <div class="absolute bottom-0 left-0 w-20 h-20 border-b-2 border-l-2 border-cyan-500 rounded-bl-lg"></div>
@@ -55,7 +55,7 @@ const Home: Component = () => {
               <img
                 src="/images/photo.png"
                 alt="Arthur"
-                class="w-full rounded-lg animate-float shadow-neon"
+                class="w-full max-w-[300px] mx-auto rounded-lg animate-float shadow-neon"
               />
 
               <div class="w-full mx-auto mt-4">
@@ -63,12 +63,15 @@ const Home: Component = () => {
                   ID: ART-HUR
                 </div>
                 <p class="text-lg leading-relaxed animate-fade-in">
-                  A Full Stack Developer seeking new learning opportunities to
-                  enhance technical and leadership skills. Experienced in
-                  complex projects and collaborating across teams, with a strong
-                  ability to quickly adapt to new environments and technologies.
-                  Effective communicator and problem solver with an optimistic
-                  outlook on challenges.
+                  A result-driven Software Engineer with 5+ years of experience,
+                  specializing in React/Next.js and .NET, with a strong focus on
+                  leadership, cross-functional collaboration and
+                  problem-solving. Adapted to quickly learning new technologies
+                  and inspiring innovative ideas. Skilled in architecting
+                  customer-oriented systems, driving project success and
+                  aligning teams through effective communication. Passionate
+                  about mentoring, fostering innovation and continuously
+                  enhancing technical capabilities.
                 </p>
                 <div class="mt-2 grid grid-cols-2 gap-4 text-xl">
                   <div class="stats-item">
@@ -155,9 +158,7 @@ const Home: Component = () => {
                     >
                       Try it out
                     </a>
-                  ) : (
-                    <h4>Coming Soon...</h4>
-                  )}
+                  ) : <></>}
                   {project.github && (
                     <a
                       href={project.github}
