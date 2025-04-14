@@ -7,7 +7,7 @@ export const experiences: Experience[] = [
     companyIntroduction:
       "A Fastest-growing vending machine company currently 2nd in domestic market serving 2K+ users and 500K+ customers",
     position: "Senior Software Egineer",
-    duration: "Aug. 2023 - Mar. 2025",
+    duration: "Aug. 2023 - Apr. 2025",
     description: [
       "Developed CMS and Vending POS UI on vending machine using NestJS, Embedded JS (EJS) with HTML, CSS, and jQuery.",
       "Implemented project architectural design, infrastructure, and production development for weight-oriented vending machine with MSSQL as database, Next.js as web server with HTTPS API, Flutter as client interface with Java + Kotlin connecting signal hardware with Android, and Socket.IO for intra-communication.",
