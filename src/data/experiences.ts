@@ -7,7 +7,7 @@ export const experiences: Experience[] = [
     companyIntroduction:
       "A Fastest-growing vending machine company currently 2nd in domestic market serving 2K+ users and 500K+ customers",
     position: "Senior Software Egineer",
-    duration: "Aug. 2023 - Apr. 2025",
+    duration: "Aug. 2023 - May. 2025",
     description: [
       "Developed CMS and Vending POS UI on vending machine using NestJS, Embedded JS (EJS) with HTML, CSS, and jQuery.",
       "Implemented project architectural design, infrastructure, and production development for weight-oriented vending machine with MSSQL as database, Next.js as web server with HTTPS API, Flutter as client interface with Java + Kotlin connecting signal hardware with Android, and Socket.IO for intra-communication.",
@@ -90,6 +90,7 @@ export const experiences: Experience[] = [
           "Led a 2-person team in modernizing an outdated <strong>ERP system</strong> by revamping on sales, procurement, and inventory management modules.",
           // "Led a team in modernizing an outdated ERP system by implementing <strong>microservices architecture</strong>, reducing system latency by 50% and improving API response times by 40%. Automated procurement and stock workflows, cutting manual processing time by 60%.",
           "Modified <strong>.Net</strong> server to <strong>microservices architecture</strong> with <strong>MSSQL</strong> database for scalable and modular development, Transitioned from <strong>EJS</strong> to <strong>AngularJS</strong>, enhancing scalability and modular development. Migrated from HTTPS polling to <strong>MQTT</strong>, enabling instant updates and reducing server load",
+          "Managed using Azure DevOps hosted on <strong>Azure VM</strong> with <strong>CI/CD</strong> pipeline using <strong>Nuget</strong>.",
         ],
       },
     ],
