@@ -1,6 +1,16 @@
 export const projects = [
   {
     id: 1,
+    name: "Arkham Analysis",
+    description:
+      "Building a data-analystic game asstant for Arkham Horror LCG over 1000+ cards by FastAPI, Python, PostgresSQL and React",
+    link: "Coming Soon",
+    image: "",
+    github: "https://github.com/hiiamarthur/arkham-analysis",
+    technologies: ["FastAPI", "Python", "Flutter", "PostgreSQL","React"],
+  },
+  {
+    id: 2,
     name: "AI Iternary Planner App",
     description:
       "Designed an AIGC-based app for itinerary dating planning	 and using Python FastApi as a server on Postgres and Flutter as a client that allows users to plan their trips using AI based on their preferences.",

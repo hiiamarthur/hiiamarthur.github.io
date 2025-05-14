@@ -78,7 +78,7 @@ export const experiences: Experience[] = [
         id: "5",
         title: "Project Management",
         description: [
-          "Collaborated across <strong>design and operations teams</strong> with 30+ smart fridge partners, translating business requirements into technical specifications to align technical solutions with business needs, ensuring seamless interoperability ",
+          "Collaborated across <strong>design and operations teams</strong> with 10+ smart fridge partners, translating business requirements into technical specifications to align technical solutions with business needs, ensuring seamless interoperability ",
           "Managed project timelines, estimated man-hours, and maintained quality assurance by overseeing merge request approvals and enforcing best development practices.",
         ],
         
@@ -221,6 +221,7 @@ export const experiences: Experience[] = [
         title: "Event Booking & Viewing App",
         description: [
           "Developed <strong>OAuth2</strong> and <strong>Booking module</strong> for an exhibition mobile app using <strong>React Native</strong>, <strong>Expo</strong> as frontend, and <strong>Java EE</strong> as backend.",
+          "Enabled <strong>Personalized</strong> event experiences on 50+ large-scale cultural events.",
           "Implemented <strong>Temporal Storage Point</strong> using <strong>DynamoDB</strong> and <strong>Firebase</strong>.",
         ],
       },
@@ -242,13 +243,13 @@ export const experiences: Experience[] = [
         id: "1",
         title: "Business Websites",
         description: [
-          "Implemented <strong>UX</strong> on <strong>SPA</strong> website using <strong>PHP</strong>, <strong>jQuery</strong>, and <strong>JavaScript</strong>.",
+          "Implemented <strong>UX</strong> on <strong>SPA</strong> website using <strong>PHP</strong>, <strong>jQuery</strong>, and <strong>JavaScript</strong> across 20+ business and educational domains.",
         ],
       },
       {
         id: "2",
         title: "Custom Management System",
-        description: ["Developed <strong>CMS</strong> using <strong>PHP</strong>, <strong>Apache</strong>, and <strong>phpMyAdmin</strong>."],
+        description: ["Developed <strong>CMS</strong> using <strong>PHP</strong>, <strong>Apache</strong>, and <strong>phpMyAdmin</strong>,enabling customzied page updates for non-technical users."],
       },
     ],
   },
