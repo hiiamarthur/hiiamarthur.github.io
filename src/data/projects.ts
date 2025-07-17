@@ -1,5 +1,14 @@
 export const projects = [
   {
+    id: 0,
+    name: "Prompt Pounder",
+    description: "Whack a mole game when waiting for AI prompts delay",
+    link: "Coming Soon",
+    image: "/images/whack-a-mole.png",
+    github: "https://github.com/hiiamarthur/whack-a-mole-extension.git",
+    technologies: ["ChatGPT", "Chrome", "Gemini", "CSS", "Html", "JavaScript"],
+  },
+  {
     id: 1,
     name: "Arkham Analysis",
     description:

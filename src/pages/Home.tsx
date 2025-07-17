@@ -63,15 +63,15 @@ const Home: Component = () => {
                   ID: ART-HUR
                 </div>
                 <p class="text-lg leading-relaxed animate-fade-in">
-                Result-driven Software Developer with 5+ years of experience 
-                specializing in full stack development using C# (.NET), React, 
-                Next.js, Flutter, and cloud services (AWS, Azure). Recognized 
-                for delivering scalable, secure, and high-performing systems 
-                across domains like vending automation, ERP, IoT, and gaming. 
-                Strong in cross-functional communication, system design, and 
-                architecture. Consistently seek technical craftsmanship through 
-                architectural leadership, collaborative mentorship and maintainable 
-                code practices.
+                Results-driven Software Engineer with 6+ years of experience 
+                in full-stack development using C# (.NET), React, Next.js, 
+                Flutter, and cloud platforms (AWS, Azure). Adaptable in delivering 
+                scalable, secure, and high-performing systems across domains 
+                such as vending automation, ERP, IoT, and gaming — leveraging 
+                diverse technologies as needed. Strong in cross-functional 
+                communication with PMs, analysts and engineers to yield business-aligned 
+                outcomes. Consistently pursue technical craftsmanship through thoughtful 
+                architecture, team mentorship, and maintainable code practices.
                 </p>
                 <div class="mt-2 grid grid-cols-2 gap-4 text-xl">
                   <div class="stats-item">
