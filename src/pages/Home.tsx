@@ -76,7 +76,7 @@ const Home: Component = () => {
                 <div class="mt-2 grid grid-cols-2 gap-4 text-xl">
                   <div class="stats-item">
                     <div class="text-cyan-500">Experience</div>
-                    <div>5+ Years</div>
+                    <div>6+ Years</div>
                   </div>
                   <div class="stats-item">
                     <div class="text-cyan-500">Education</div>
