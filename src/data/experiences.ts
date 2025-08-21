@@ -86,6 +86,22 @@ export const experiences: Experience[] = [
       },
       {
         id: "6",
+        title: "Integration of Hopsital Authority System",
+        description: [
+          "Customized vending machine to integrate with Hospital Authority System using C#, Express.JS, and React.",
+          "Designed db schema for <strong>HTTP API</strong>, implmented temperature and bateria control to the Hospita Authority System",
+        ],
+      },
+      {
+        id: "7",
+        title: "Integration to HSBC, Manulife, MTR, etc.",
+        description: [
+          "Customized vending machine to integrate with HSBC, Manulife, MTR, etc. using C#, Express.JS, and React.",
+          "Designed <strong>quota control system</strong>, <strong>custom payment gateway</strong>, and apply <strong>redeem features</strong> to the vending machine",
+        ],
+      },
+      {
+        id: "7",
         title: "ERP System Revamp",
         description: [
           "Led a 2-person team in modernizing an outdated <strong>ERP system</strong> by revamping on sales, procurement, and inventory management modules.",
@@ -168,6 +184,15 @@ export const experiences: Experience[] = [
           "Programmed an AR app with image and gesture recognition featuring AR animation according to user's pose using <strong>MediaPipe</strong> and <strong>Vuforia</strong> (area scanning) in <strong>Unity</strong>.",
         ],
       },
+      {
+        id: "6",
+        title: "MoveNHeal(AI Rehabilitation) App and CMS",
+        description: [
+          "Developed app and CMS for <strong>MoveNHeal</strong> app using <strong>mediapipe</strong> and <strong>unity</strong> , <strong>Flutter</strong>",
+          "Featured with real-time post recognition by coordinate to analyze the user's move.",
+          "Managed with CMS on <strong>Next.js</strong> to track participant progress and statistics with physiotherapists, doctors and patients."
+        ],
+      }
     ],
   },
   {
