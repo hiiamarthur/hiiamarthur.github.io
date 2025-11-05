@@ -12,11 +12,11 @@ export const projects = [
     id: 1,
     name: "Arkham Analysis",
     description:
-      "Building a data-analystic game asstant for Arkham Horror LCG over 1000+ cards by FastAPI, Python, PostgresSQL and React",
+      "Building a data-analystic game asstant for Arkham Horror LCG over 1000+ cards by FastAPI, Python, PostgresSQL and Angular",
     link: "Coming Soon",
-    image: "",
+    image: "/images/arkham.png",
     github: "https://github.com/hiiamarthur/arkham-analysis",
-    technologies: ["FastAPI", "Python", "Flutter", "PostgreSQL","React"],
+    technologies: ["FastAPI", "Python", "Flutter", "PostgreSQL","Angular"],
   },
   {
     id: 2,
@@ -58,6 +58,15 @@ export const projects = [
     // image: "/images/reals.png",
     github: "https://github.com/hiiamarthur/mediapipeUnity/",
     technologies: ["Unity", "C#", "MediaPipe", "AR", ],
+  },
+  {
+    id: 4,
+    name: "Automatic Reduction on Chord Indentification",
+    description: "A Symbolic AI machine learning musicology system using python for automatic chord identification, tonal center detection, and hierarchical segmentation analysis of musical scores using the Spiral Array Model and KNN Algorithm.",
+    link: "Coming Soon",
+    image: "/images/chord.png",
+    github: "https://github.com/hiiamarthur/KY2001-Automatic-Reduction-on-Chord-Indentification",
+    technologies: ["Python", "Artificial Intelligence", "Machine Learning"],
   },
   {
     id: 4,

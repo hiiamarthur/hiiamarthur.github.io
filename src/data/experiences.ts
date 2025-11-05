@@ -5,7 +5,7 @@ export const experiences: Experience[] = [
     id: "1",
     company: "IVM Technology Limited",
     companyIntroduction:
-      "A Fastest-growing vending machine company currently 2nd in domestic market serving 2K+ users and 500K+ customers",
+      "A leading vending machine company in the domestic market, serving 2k+ sellers and 500k+ customers.",
     position: "Senior Software Egineer",
     duration: "Aug. 2023 - Present",
     description: [
@@ -101,7 +101,7 @@ export const experiences: Experience[] = [
         ],
       },
       {
-        id: "7",
+        id: "8",
         title: "ERP System Revamp",
         description: [
           "Led a 2-person team in modernizing an outdated <strong>ERP system</strong> by revamping on sales, procurement, and inventory management modules.",
@@ -298,4 +298,32 @@ export const experiences: Experience[] = [
       },
     ],
   },
+  {
+    id: "7",
+    company: 'Self-Employed',
+    position: 'freelance developer',
+    duration: 'Jul. 2018 - Jul. 2019',
+    description: [
+      "Developed websites for small businesses using React, Html, Css, Javascript, Jquery",
+      "Developed self projects using unity, c#"
+    ],
+    projects: [
+      {
+        id: "1",
+        title: "Websites for small businesses",
+        description: [
+          "Developed websites for small businesses using React, Html, Css, Javascript, Jquery",
+        ],
+      },
+      {
+        id: "2",
+        title: "Room ",
+        description: [
+          "Developed self projects using unity, c#",
+        ],
+      },
+    ],
+    technologies: ["React", "Html", "Css", "Javascript",  "Jquery", "wordpress", "unity", "c#"],
+   
+  }
 ];

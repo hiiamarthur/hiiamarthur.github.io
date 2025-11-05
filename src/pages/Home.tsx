@@ -63,20 +63,19 @@ const Home: Component = () => {
                   ID: ART-HUR
                 </div>
                 <p class="text-lg leading-relaxed animate-fade-in">
-                Results-driven Software Engineer with 6+ years of experience 
-                in full-stack development using C# (.NET), React, Next.js, 
-                Flutter, and cloud platforms (AWS, Azure). Adaptable in delivering 
-                scalable, secure, and high-performing systems across domains 
-                such as vending automation, ERP, IoT, and gaming — leveraging 
-                diverse technologies as needed. Strong in cross-functional 
-                communication with PMs, analysts and engineers to yield business-aligned 
-                outcomes. Consistently pursue technical craftsmanship through thoughtful 
-                architecture, team mentorship, and maintainable code practices.
+                A Results-driven Software Engineer in full-stack development specializing in React, 
+                Next.js, Python, C#(.Net) Flutter, Cloud(Azure, AWS) and vibe coding. Adaptable 
+                in delivering scalable, secure, and robust solutions across diverse domains such 
+                as vending automation, ERP, IoT, finance and gaming with proficiency in designing system 
+                architecture, implementing performance optimization and driving pro ject accountability. 
+                Strong in cross-functional communication with PMs, analysts and engineers to yield 
+                business-aligned outcomes. Consistently pursue technical craftsmanship through team 
+                mentorship, and maintainable code practices.
                 </p>
                 <div class="mt-2 grid grid-cols-2 gap-4 text-xl">
                   <div class="stats-item">
                     <div class="text-cyan-500">Experience</div>
-                    <div>6+ Years</div>
+                    <div>7+ Years</div>
                   </div>
                   <div class="stats-item">
                     <div class="text-cyan-500">Education</div>
@@ -237,7 +236,7 @@ const Home: Component = () => {
 
             <div class="contact-card group">
               <a
-                href="https://www.linkedin.com/in/arthur-lau-363342208/"
+                href="https://www.linkedin.com/in/arthurlau/"
                 target="_blank"
                 rel="noopener noreferrer"
                 class="card-content"
