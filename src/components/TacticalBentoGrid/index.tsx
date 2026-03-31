@@ -9,7 +9,7 @@ const SectionHeader: Component = () => (
   <div class="flex items-center gap-4 mb-6">
     <div class="flex items-center gap-2">
       <div class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-      <span class="font-mono text-xs tracking-[0.25em] text-slate-500 uppercase">
+      <span class="font-space text-sm text-slate-400 tracking-widest">
         Tactical Modules
       </span>
     </div>

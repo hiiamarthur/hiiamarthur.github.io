@@ -1,20 +1,109 @@
 import { createSignal, onCleanup, onMount, For, type Component } from "solid-js"
 import { commandState, type SectionId } from "../../store/commandStore"
 
-// ─── Fake vitals ──────────────────────────────────────────────────────────────
-function useFakeVitals() {
-  const [cpu, setCpu] = createSignal(42)
-  const [mem, setMem] = createSignal(61)
-  const [net, setNet] = createSignal(28)
+// ─── Client info (browser + OS) ───────────────────────────────────────────────
+// Detected once at module load; never changes during session.
+
+function detectClient(): { browser: string; os: string } {
+  const uaData = (navigator as any).userAgentData
+  let browser = "Unknown"
+  let os = "Unknown"
+
+  if (uaData?.brands) {
+    os = uaData.platform ?? "Unknown"
+    const real = (uaData.brands as { brand: string; version: string }[]).find(
+      (b) => !b.brand.includes("Not") && b.brand !== "Chromium"
+    )
+    browser = real ? `${real.brand} ${real.version}` : "Chromium"
+  } else {
+    const ua = navigator.userAgent
+    if (ua.includes("Firefox/"))       browser = "Firefox " + (ua.match(/Firefox\/([\d]+)/)?.[1] ?? "")
+    else if (ua.includes("Edg/"))      browser = "Edge "    + (ua.match(/Edg\/([\d]+)/)?.[1]     ?? "")
+    else if (ua.includes("Chrome/"))   browser = "Chrome "  + (ua.match(/Chrome\/([\d]+)/)?.[1]  ?? "")
+    else if (ua.includes("Safari/") && ua.includes("Version/"))
+                                        browser = "Safari "  + (ua.match(/Version\/([\d]+)/)?.[1] ?? "")
+
+    if      (ua.includes("Windows"))                             os = "Windows"
+    else if (ua.includes("Mac OS X"))                            os = "macOS"
+    else if (ua.includes("Android"))                             os = "Android"
+    else if (ua.includes("iPhone") || ua.includes("iPad"))       os = "iOS"
+    else if (ua.includes("Linux"))                               os = "Linux"
+  }
+
+  return { browser, os }
+}
+
+const CLIENT = detectClient()
+
+// ─── Vitals ───────────────────────────────────────────────────────────────────
+// MEM: real JS heap % on Chrome/Edge; simulated elsewhere.
+// NET: real downlink + effectiveType via Network Information API; simulated elsewhere.
+// CPU: no usage API — shows core count + simulated load %.
+
+function useVitals() {
+  const cores = navigator.hardwareConcurrency ?? 4
+
+  // CPU — always simulated, but seeded from core count
+  const [cpu, setCpu] = createSignal(Math.min(90, cores * 8 + 10))
+
+  // MEM — real if performance.memory exists
+  const perfMem = (performance as any).memory as
+    | { usedJSHeapSize: number; jsHeapSizeLimit: number }
+    | undefined
+  const [mem, setMem] = createSignal(
+    perfMem
+      ? Math.round((perfMem.usedJSHeapSize / perfMem.jsHeapSizeLimit) * 100)
+      : 61
+  )
+
+  // NET — real downlink if Network Information API available
+  const conn = (navigator as any).connection as
+    | { effectiveType?: string; downlink?: number; addEventListener?: Function; removeEventListener?: Function }
+    | undefined
+  const downlinkToPercent = (mbps: number) => Math.min(99, Math.round((mbps / 50) * 100))
+  const [net, setNet] = createSignal(
+    conn?.downlink != null ? downlinkToPercent(conn.downlink) : 28
+  )
+  const [netLabel, setNetLabel] = createSignal<string>(
+    conn?.effectiveType?.toUpperCase() ?? ""
+  )
+
   onMount(() => {
-    const id = setInterval(() => {
-      setCpu((v) => Math.min(95, Math.max(12, v + ((Math.random() - 0.5) * 8) | 0)))
-      setMem((v) => Math.min(88, Math.max(40, v + ((Math.random() - 0.5) * 4) | 0)))
-      setNet((v) => Math.min(99, Math.max(5,  v + ((Math.random() - 0.5) * 15) | 0)))
+    // Poll real MEM every 2400ms
+    const memId = setInterval(() => {
+      if (perfMem) {
+        setMem(Math.round((perfMem.usedJSHeapSize / perfMem.jsHeapSizeLimit) * 100))
+      } else {
+        setMem((v) => Math.min(88, Math.max(40, v + (((Math.random() - 0.5) * 4) | 0))))
+      }
     }, 2400)
-    onCleanup(() => clearInterval(id))
+
+    // Poll real NET or simulate
+    const onConnChange = () => {
+      if (conn?.downlink != null) setNet(downlinkToPercent(conn.downlink))
+      if (conn?.effectiveType)    setNetLabel(conn.effectiveType.toUpperCase())
+    }
+    conn?.addEventListener?.("change", onConnChange)
+    const netId = setInterval(() => {
+      if (conn?.downlink == null) {
+        setNet((v) => Math.min(99, Math.max(5, v + (((Math.random() - 0.5) * 15) | 0))))
+      }
+    }, 2400)
+
+    // Simulate CPU load (no real API)
+    const cpuId = setInterval(() => {
+      setCpu((v) => Math.min(95, Math.max(12, v + (((Math.random() - 0.5) * 8) | 0))))
+    }, 2400)
+
+    onCleanup(() => {
+      clearInterval(memId)
+      clearInterval(netId)
+      clearInterval(cpuId)
+      conn?.removeEventListener?.("change", onConnChange)
+    })
   })
-  return { cpu, mem, net }
+
+  return { cpu, mem, net, netLabel, cores }
 }
 
 // ─── Event log ────────────────────────────────────────────────────────────────
@@ -64,10 +153,15 @@ function useUptime() {
 }
 
 // ─── MicroBar ─────────────────────────────────────────────────────────────────
-const MicroBar: Component<{ label: string; value: number; color: string }> = (props) => (
+const MicroBar: Component<{ label: string; value: number; color: string; sublabel?: string }> = (props) => (
   <div class="mb-2.5">
     <div class="flex justify-between mb-1">
-      <span class="font-mono text-[9px] tracking-[0.15em] text-slate-600 uppercase">{props.label}</span>
+      <div class="flex items-baseline gap-1.5">
+        <span class="font-mono text-[9px] tracking-[0.15em] text-slate-600 uppercase">{props.label}</span>
+        {props.sublabel && (
+          <span class="font-mono text-[7px] tracking-wider text-slate-700 uppercase">{props.sublabel}</span>
+        )}
+      </div>
       <span class="font-mono text-[9px] tabular-nums" style={{ color: props.color }}>{props.value}%</span>
     </div>
     <div class="h-px bg-white/5 rounded-full overflow-hidden">
@@ -91,7 +185,7 @@ const SECTION_META: Record<SectionId, { codename: string; color: string }> = {
 
 // ─── StatusColumn ─────────────────────────────────────────────────────────────
 const StatusColumn: Component = () => {
-  const { cpu, mem, net } = useFakeVitals()
+  const { cpu, mem, net, netLabel, cores } = useVitals()
   const log = useEventLog()
   const uptime = useUptime()
   const meta = () => SECTION_META[commandState.activeSection]
@@ -125,9 +219,26 @@ const StatusColumn: Component = () => {
         {/* Vitals */}
         <div>
           <div class="font-mono text-[8px] tracking-[0.2em] text-slate-700 uppercase mb-2">Vitals</div>
-          <MicroBar label="CPU" value={cpu()} color="#67e8f9" />
-          <MicroBar label="MEM" value={mem()} color="#a78bfa" />
-          <MicroBar label="NET" value={net()} color="#34d399" />
+          <MicroBar label="CPU" value={cpu()} color="#67e8f9" sublabel={`${cores}c`} />
+          <MicroBar label="MEM" value={mem()} color="#a78bfa" sublabel={(performance as any).memory ? "heap" : "~"} />
+          <MicroBar label="NET" value={net()} color="#34d399" sublabel={netLabel() || undefined} />
+        </div>
+
+        {/* Client info */}
+        <div>
+          <div class="font-mono text-[8px] tracking-[0.2em] text-slate-700 uppercase mb-2">Client</div>
+          <div class="flex flex-col gap-1">
+            <div class="flex items-center justify-between">
+              <span class="font-mono text-[7px] tracking-wider text-slate-700 uppercase">OS</span>
+              <span class="font-mono text-[8px] text-slate-500 tracking-wide">{CLIENT.os}</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="font-mono text-[7px] tracking-wider text-slate-700 uppercase">UA</span>
+              <span class="font-mono text-[8px] text-slate-500 tracking-wide truncate max-w-[90px]" title={CLIENT.browser}>
+                {CLIENT.browser}
+              </span>
+            </div>
+          </div>
         </div>
 
         {/* Graph focus */}

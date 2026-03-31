@@ -1,4 +1,4 @@
-import { Show, onMount, onCleanup, type Component } from "solid-js"
+import { Show, createSignal, onMount, onCleanup, type Component } from "solid-js"
 import { commandState, setCommandState, type SectionId } from "../../store/commandStore"
 
 import HudTopBar       from "./HudTopBar"
@@ -119,6 +119,9 @@ const FadeIn: Component<{ children: any }> = (props) => (
 
 // ─── CommandCenter ────────────────────────────────────────────────────────────
 const CommandCenter: Component = () => {
+  const [leftOpen,  setLeftOpen]  = createSignal(false)
+  const [rightOpen, setRightOpen] = createSignal(false)
+
   // Navigation is immediate; the footer terminal prompt handles the typing effect
   const selectSection = (id: SectionId) => setCommandState("activeSection", id)
 
@@ -142,11 +145,50 @@ const CommandCenter: Component = () => {
 
       <HudTopBar />
 
-      <div class="flex flex-1 overflow-hidden min-h-0">
+      <div class="flex flex-1 overflow-hidden min-h-0 relative">
 
-        {/* Left sidebar */}
-        <div class="hidden md:flex">
+        {/* ── Left sidebar — inline on md+, drawer on smaller ── */}
+        <div class="flex max-md:hidden">
           <SidePanel activeSection={commandState.activeSection} onSelect={selectSection} />
+        </div>
+
+        {/* Left drawer (< md) */}
+        <div class="md:hidden">
+          {/* Backdrop */}
+          <Show when={leftOpen()}>
+            <div
+              class="fixed inset-0 z-40 bg-black/70 backdrop-blur-sm"
+              onClick={() => setLeftOpen(false)}
+            />
+          </Show>
+          {/* Sliding panel */}
+          <div
+            class="fixed left-0 top-0 bottom-0 z-50 w-48 transition-transform duration-300 ease-out"
+            style={{ transform: leftOpen() ? "translateX(0)" : "translateX(-100%)" }}
+          >
+            <SidePanel activeSection={commandState.activeSection} onSelect={(id) => { selectSection(id); setLeftOpen(false) }} />
+          </div>
+          {/* Edge pull tab */}
+          <button
+            class="fixed left-0 top-1/2 -translate-y-1/2 z-30 flex flex-col items-center justify-center gap-0.5 py-3 px-1 transition-all duration-200"
+            style={{
+              background: leftOpen() ? "transparent" : "rgba(4,8,15,0.9)",
+              "border-right": "1px solid rgba(103,232,249,0.15)",
+              "border-top": "1px solid rgba(103,232,249,0.08)",
+              "border-bottom": "1px solid rgba(103,232,249,0.08)",
+              "border-radius": "0 4px 4px 0",
+              "box-shadow": leftOpen() ? "none" : "2px 0 12px rgba(0,0,0,0.5)",
+              opacity: leftOpen() ? "0" : "1",
+              "pointer-events": leftOpen() ? "none" : "auto",
+            }}
+            onClick={() => setLeftOpen(true)}
+            title="Open navigation"
+          >
+            <span class="font-mono text-[7px] tracking-widest text-cyan-500/60" style={{ "writing-mode": "vertical-rl" }}>NAV</span>
+            <svg class="w-2.5 h-2.5 text-cyan-500/50 mt-1" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M6 4l4 4-4 4" />
+            </svg>
+          </button>
         </div>
 
         {/* Main content */}
@@ -182,16 +224,56 @@ const CommandCenter: Component = () => {
           </div>
         </main>
 
-        {/* Right status column */}
-        <div class="hidden lg:flex">
+        {/* ── Right status column — inline on lg+, drawer on smaller ── */}
+        <div class="flex max-lg:hidden">
           <StatusColumn />
         </div>
+
+        {/* Right drawer (< lg) */}
+        <div class="lg:hidden">
+          {/* Backdrop */}
+          <Show when={rightOpen()}>
+            <div
+              class="fixed inset-0 z-40 bg-black/70 backdrop-blur-sm"
+              onClick={() => setRightOpen(false)}
+            />
+          </Show>
+          {/* Sliding panel */}
+          <div
+            class="fixed right-0 top-0 bottom-0 z-50 transition-transform duration-300 ease-out"
+            style={{ transform: rightOpen() ? "translateX(0)" : "translateX(100%)" }}
+          >
+            <StatusColumn />
+          </div>
+          {/* Edge pull tab */}
+          <button
+            class="fixed right-0 top-1/2 -translate-y-1/2 z-30 flex flex-col items-center justify-center gap-0.5 py-3 px-1 transition-all duration-200"
+            style={{
+              background: rightOpen() ? "transparent" : "rgba(4,8,15,0.9)",
+              "border-left": "1px solid rgba(168,85,247,0.15)",
+              "border-top": "1px solid rgba(168,85,247,0.08)",
+              "border-bottom": "1px solid rgba(168,85,247,0.08)",
+              "border-radius": "4px 0 0 4px",
+              "box-shadow": rightOpen() ? "none" : "-2px 0 12px rgba(0,0,0,0.5)",
+              opacity: rightOpen() ? "0" : "1",
+              "pointer-events": rightOpen() ? "none" : "auto",
+            }}
+            onClick={() => setRightOpen(true)}
+            title="Open status"
+          >
+            <svg class="w-2.5 h-2.5 text-purple-400/50 mb-1" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M10 12L6 8l4-4" />
+            </svg>
+            <span class="font-mono text-[7px] tracking-widest text-purple-400/60" style={{ "writing-mode": "vertical-rl" }}>SYS</span>
+          </button>
+        </div>
+
       </div>
 
       <HudBottomBar />
 
       {/* Mobile bottom nav */}
-      <nav class="md:hidden flex-shrink-0 flex items-stretch border-t border-white/5 bg-[#080808] overflow-x-auto">
+      <nav class="sm:hidden flex-shrink-0 flex items-stretch border-t border-white/5 bg-[#080808] overflow-x-auto">
         {SECTION_ORDER.map((id) => {
           const labels: Record<SectionId, string> = {
             hero: "HOME", about: "IDENT", experience: "OPS", projects: "TAC", starmap: "MAP", contact: "COMMS",
