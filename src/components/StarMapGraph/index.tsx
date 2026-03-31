@@ -2,6 +2,7 @@ import {
   createSignal,
   createMemo,
   onMount,
+  onCleanup,
   For,
   Show,
   type Component,
@@ -95,32 +96,91 @@ const FilterDefs: Component = () => (
   </defs>
 )
 
-// ─── Background Grid ─────────────────────────────────────────────────────────
+// ─── Stellar Background ───────────────────────────────────────────────────────
+// Pre-computed star field + nebula patches. Generated once at module load with
+// a fixed seed so the layout is deterministic across renders.
 
-const BackgroundGrid: Component = () => {
-  const cols = Math.floor(VB_W / 60)
-  const rows = Math.floor(VB_H / 60)
-  return (
-    <g opacity="0.06">
-      <For each={Array.from({ length: cols + 1 }, (_, i) => i)}>
-        {(i) => (
-          <line
-            x1={i * 60} y1={0} x2={i * 60} y2={VB_H}
-            stroke="#67e8f9" stroke-width="0.5"
-          />
-        )}
-      </For>
-      <For each={Array.from({ length: rows + 1 }, (_, i) => i)}>
-        {(i) => (
-          <line
-            x1={0} y1={i * 60} x2={VB_W} y2={i * 60}
-            stroke="#67e8f9" stroke-width="0.5"
-          />
-        )}
-      </For>
-    </g>
-  )
+function lcg(seed: number) {
+  let s = seed >>> 0
+  return () => { s = (Math.imul(1664525, s) + 1013904223) >>> 0; return s / 0xffffffff }
 }
+
+const rand = lcg(0xdeadbeef)
+
+// 120 tiny background stars
+const TINY_STARS = Array.from({ length: 120 }, () => ({
+  x: rand() * VB_W, y: rand() * VB_H,
+  r: rand() * 0.7 + 0.2,
+  o: rand() * 0.4 + 0.1,
+}))
+
+// 30 slightly brighter mid stars
+const MID_STARS = Array.from({ length: 30 }, () => ({
+  x: rand() * VB_W, y: rand() * VB_H,
+  r: rand() * 1.2 + 0.6,
+  o: rand() * 0.35 + 0.15,
+}))
+
+// 8 bright feature stars with a cross-flare
+const BRIGHT_STARS = Array.from({ length: 8 }, () => ({
+  x: rand() * VB_W, y: rand() * VB_H,
+  o: rand() * 0.3 + 0.25,
+}))
+
+// 4 nebula cloud centres
+const NEBULAE = [
+  { cx: 180, cy: 120, rx: 160, ry: 100, color: "#818cf8", o: 0.04 },
+  { cx: 720, cy: 400, rx: 180, ry: 110, color: "#a855f7", o: 0.035 },
+  { cx: 500, cy: 260, rx: 200, ry: 120, color: "#67e8f9", o: 0.025 },
+  { cx: 80,  cy: 420, rx: 120, ry:  80, color: "#34d399", o: 0.03  },
+]
+
+const StellarBackground: Component = () => (
+  <g>
+    {/* Nebula patches */}
+    {NEBULAE.map((n) => (
+      <ellipse cx={n.cx} cy={n.cy} rx={n.rx} ry={n.ry}
+        fill={n.color} opacity={n.o}
+        style={{ filter: "blur(32px)" }}
+      />
+    ))}
+
+    {/* Tiny background stars */}
+    {TINY_STARS.map((s) => (
+      <circle cx={s.x} cy={s.y} r={s.r} fill="#e2e8f0" opacity={s.o} />
+    ))}
+
+    {/* Mid-brightness stars */}
+    {MID_STARS.map((s) => (
+      <circle cx={s.x} cy={s.y} r={s.r} fill="#a5f3fc" opacity={s.o} />
+    ))}
+
+    {/* Bright stars with 4-point cross flare */}
+    {BRIGHT_STARS.map((s) => (
+      <g opacity={s.o}>
+        <circle cx={s.x} cy={s.y} r={1.6} fill="white" />
+        {/* horizontal flare */}
+        <line x1={s.x - 6} y1={s.y} x2={s.x + 6} y2={s.y}
+          stroke="white" stroke-width="0.4" opacity="0.5" />
+        {/* vertical flare */}
+        <line x1={s.x} y1={s.y - 6} x2={s.x} y2={s.y + 6}
+          stroke="white" stroke-width="0.4" opacity="0.5" />
+        {/* soft glow */}
+        <circle cx={s.x} cy={s.y} r={4} fill="white" opacity="0.06" />
+      </g>
+    ))}
+
+    {/* Subtle grid overlay — much dimmer than before */}
+    <g opacity="0.025">
+      {Array.from({ length: Math.floor(VB_W / 60) + 1 }, (_, i) => (
+        <line x1={i * 60} y1={0} x2={i * 60} y2={VB_H} stroke="#67e8f9" stroke-width="0.5" />
+      ))}
+      {Array.from({ length: Math.floor(VB_H / 60) + 1 }, (_, i) => (
+        <line x1={0} y1={i * 60} x2={VB_W} y2={i * 60} stroke="#67e8f9" stroke-width="0.5" />
+      ))}
+    </g>
+  </g>
+)
 
 // ─── Edge Component ───────────────────────────────────────────────────────────
 
@@ -313,117 +373,205 @@ const Legend: Component = () => {
 
 const StarMapGraph: Component = () => {
   const [mounted, setMounted] = createSignal(false)
+  const [panX,    setPanX]    = createSignal(0)
+  const [panY,    setPanY]    = createSignal(0)
+  const [zoom,    setZoom]    = createSignal(1)
+  const [dragging, setDragging] = createSignal(false)
+
+  let svgRef!: SVGSVGElement
+  let lastMouse = { x: 0, y: 0 }
+  let lastTouchDist = 0
+  let lastTouchMid  = { x: 0, y: 0 }
 
   onMount(() => {
-    // Small delay so the graph fades in after the rest of the page settles
     requestAnimationFrame(() => setMounted(true))
+
+    // Must be non-passive to call preventDefault on wheel
+    const onWheel = (e: WheelEvent) => {
+      e.preventDefault()
+      const factor = e.deltaY < 0 ? 1.12 : 0.9
+      const newZoom = Math.min(5, Math.max(0.25, zoom() * factor))
+      // Zoom toward cursor in SVG coords
+      const pt = svgRef.createSVGPoint()
+      pt.x = e.clientX; pt.y = e.clientY
+      const svgPt = pt.matrixTransform(svgRef.getScreenCTM()!.inverse())
+      const zr = newZoom / zoom()
+      setPanX(svgPt.x * (1 - zr) + panX() * zr)
+      setPanY(svgPt.y * (1 - zr) + panY() * zr)
+      setZoom(newZoom)
+    }
+    svgRef.addEventListener("wheel", onWheel, { passive: false })
+    onCleanup(() => svgRef.removeEventListener("wheel", onWheel))
   })
 
+  const handleMouseDown = (e: MouseEvent) => {
+    setDragging(true)
+    lastMouse = { x: e.clientX, y: e.clientY }
+  }
+  const handleMouseMove = (e: MouseEvent) => {
+    if (!dragging()) return
+    const rect = svgRef.getBoundingClientRect()
+    const sx = VB_W / rect.width
+    const sy = VB_H / rect.height
+    setPanX(p => p + (e.clientX - lastMouse.x) * sx)
+    setPanY(p => p + (e.clientY - lastMouse.y) * sy)
+    lastMouse = { x: e.clientX, y: e.clientY }
+  }
+  const stopDrag = () => setDragging(false)
+
+  const handleTouchStart = (e: TouchEvent) => {
+    if (e.touches.length === 1) {
+      setDragging(true)
+      lastMouse = { x: e.touches[0].clientX, y: e.touches[0].clientY }
+    } else if (e.touches.length === 2) {
+      setDragging(false)
+      lastTouchDist = Math.hypot(
+        e.touches[1].clientX - e.touches[0].clientX,
+        e.touches[1].clientY - e.touches[0].clientY,
+      )
+      lastTouchMid = {
+        x: (e.touches[0].clientX + e.touches[1].clientX) / 2,
+        y: (e.touches[0].clientY + e.touches[1].clientY) / 2,
+      }
+    }
+  }
+  const handleTouchMove = (e: TouchEvent) => {
+    e.preventDefault()
+    if (e.touches.length === 1 && dragging()) {
+      const rect = svgRef.getBoundingClientRect()
+      const sx = VB_W / rect.width
+      const sy = VB_H / rect.height
+      setPanX(p => p + (e.touches[0].clientX - lastMouse.x) * sx)
+      setPanY(p => p + (e.touches[0].clientY - lastMouse.y) * sy)
+      lastMouse = { x: e.touches[0].clientX, y: e.touches[0].clientY }
+    } else if (e.touches.length === 2) {
+      const dist = Math.hypot(
+        e.touches[1].clientX - e.touches[0].clientX,
+        e.touches[1].clientY - e.touches[0].clientY,
+      )
+      const newZoom = Math.min(5, Math.max(0.25, zoom() * (dist / lastTouchDist)))
+      const pt = svgRef.createSVGPoint()
+      pt.x = lastTouchMid.x; pt.y = lastTouchMid.y
+      const svgPt = pt.matrixTransform(svgRef.getScreenCTM()!.inverse())
+      const zr = newZoom / zoom()
+      setPanX(svgPt.x * (1 - zr) + panX() * zr)
+      setPanY(svgPt.y * (1 - zr) + panY() * zr)
+      setZoom(newZoom)
+      lastTouchDist = dist
+    }
+  }
+
+  const resetView = () => { setPanX(0); setPanY(0); setZoom(1) }
+
+  const transform = createMemo(() =>
+    `translate(${panX()}, ${panY()}) scale(${zoom()})`
+  )
+
   const { focusedId, highlightedEdges, highlightedNodes } = useHighlight()
-
-  // Pre-index nodes by id so edge lookup is O(1)
   const nodeMap = new Map(NODES.map((n) => [n.id, n]))
-
   const hasHighlight = () => focusedId() !== null
 
-  // Local hover (direct node hover, not bento-card-driven)
   const handleNodeHover = (id: string | null) => {
+    if (dragging()) return
     if (id) {
       setCommandState("starMapFocusNode", NODES.find((n) => n.id === id)?.label ?? null)
     } else {
-      // Only clear if no bento card is holding focus
-      if (!commandState.activeModule) {
-        setCommandState("starMapFocusNode", null)
-      }
+      if (!commandState.activeModule) setCommandState("starMapFocusNode", null)
     }
   }
 
   return (
-    <section class="w-full max-w-7xl mx-auto px-4 pb-20">
-      {/* Section header */}
-      <div class="flex items-center gap-4 mb-6">
-        <div class="flex items-center gap-2">
-          <div class="w-1.5 h-1.5 rounded-full bg-violet-400 animate-pulse" />
-          <span class="font-space text-sm text-slate-400 tracking-widest">
-            Knowledge Graph
-          </span>
-        </div>
-        <div class="flex-1 h-px bg-gradient-to-r from-slate-800 to-transparent" />
-        <span class="font-mono text-[10px] text-slate-600 tabular-nums">
-          {NODES.length} NODES · {EDGES.length} EDGES
-        </span>
-      </div>
-
-      {/* SVG graph */}
+    <section class="w-full max-w-7xl mx-auto px-4">
       <div
         class="relative rounded-lg border border-white/5 bg-[#080808] overflow-hidden transition-opacity duration-700"
         style={{ opacity: mounted() ? "1" : "0" }}
       >
-        {/* Radial vignette overlay */}
-        <div
-          class="absolute inset-0 pointer-events-none z-10"
-          style={{
-            background:
-              "radial-gradient(ellipse at 50% 50%, transparent 55%, rgba(8,8,8,0.7) 100%)",
-          }}
-        />
-
         <svg
+          ref={svgRef!}
           viewBox={`0 0 ${VB_W} ${VB_H}`}
           class="w-full"
-          style={{ "max-height": "520px" }}
+          style={{
+            cursor: dragging() ? "grabbing" : "grab",
+            "touch-action": "none",
+          }}
           xmlns="http://www.w3.org/2000/svg"
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={stopDrag}
+          onMouseLeave={stopDrag}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={stopDrag}
         >
           <FilterDefs />
-          <BackgroundGrid />
 
-          {/* ── Edges ── */}
-          <g>
-            <For each={EDGES}>
-              {(edge) => {
-                const src = nodeMap.get(edge.source)
-                const tgt = nodeMap.get(edge.target)
-                if (!src || !tgt) return null
-                return (
-                  <EdgeLine
-                    edge={edge}
-                    sourceNode={src}
-                    targetNode={tgt}
-                    highlighted={highlightedEdges().has(edge.id)}
-                    dimmed={hasHighlight() && !highlightedEdges().has(edge.id)}
+          {/* All content inside the pan/zoom group */}
+          <g transform={transform()}>
+            <StellarBackground />
+
+            {/* ── Edges ── */}
+            <g>
+              <For each={EDGES}>
+                {(edge) => {
+                  const src = nodeMap.get(edge.source)
+                  const tgt = nodeMap.get(edge.target)
+                  if (!src || !tgt) return null
+                  return (
+                    <EdgeLine
+                      edge={edge}
+                      sourceNode={src}
+                      targetNode={tgt}
+                      highlighted={highlightedEdges().has(edge.id)}
+                      dimmed={hasHighlight() && !highlightedEdges().has(edge.id)}
+                    />
+                  )
+                }}
+              </For>
+            </g>
+
+            {/* ── Nodes ── */}
+            <g>
+              <For each={NODES}>
+                {(node) => (
+                  <NodeCircle
+                    node={node}
+                    focused={focusedId() === node.id}
+                    highlighted={highlightedNodes().has(node.id)}
+                    dimmed={hasHighlight() && !highlightedNodes().has(node.id)}
+                    onHover={handleNodeHover}
                   />
-                )
-              }}
-            </For>
-          </g>
-
-          {/* ── Nodes ── (rendered on top of edges) */}
-          <g>
-            <For each={NODES}>
-              {(node) => (
-                <NodeCircle
-                  node={node}
-                  focused={focusedId() === node.id}
-                  highlighted={highlightedNodes().has(node.id)}
-                  dimmed={hasHighlight() && !highlightedNodes().has(node.id)}
-                  onHover={handleNodeHover}
-                />
-              )}
-            </For>
+                )}
+              </For>
+            </g>
           </g>
         </svg>
 
+        {/* Controls: reset + hint */}
+        <div class="absolute top-3 right-3 flex items-center gap-2">
+          <Show when={zoom() !== 1 || panX() !== 0 || panY() !== 0}>
+            <button
+              onClick={resetView}
+              class="font-mono text-[9px] tracking-widest text-slate-500 border border-white/10 rounded px-2 py-1 hover:text-slate-300 hover:border-white/20 transition-colors bg-[#080808]/80"
+            >
+              RESET
+            </button>
+          </Show>
+          <span class="font-mono text-[9px] tracking-widest text-slate-700 hidden sm:inline">
+            DRAG · SCROLL TO ZOOM
+          </span>
+        </div>
+
         {/* Focus tooltip */}
         <div
-          class="absolute bottom-4 left-1/2 -translate-x-1/2 font-mono text-[10px] tracking-[0.2em] text-slate-500 transition-opacity duration-300 pointer-events-none"
+          class="absolute bottom-3 left-1/2 -translate-x-1/2 font-mono text-[10px] tracking-[0.2em] text-slate-600 transition-opacity duration-300 pointer-events-none"
           style={{ opacity: focusedId() ? "0" : "1" }}
         >
-          HOVER NODE OR CARD TO FOCUS
+          HOVER NODE TO FOCUS
         </div>
 
         {/* Active node readout */}
         <Show when={focusedId()}>
-          <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 font-mono text-[10px] tracking-widest pointer-events-none">
+          <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-2 font-mono text-[10px] tracking-widest pointer-events-none">
             <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
             <span class="text-slate-500">FOCUSING</span>
             <span class="text-cyan-400">{commandState.starMapFocusNode}</span>

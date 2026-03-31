@@ -17,12 +17,20 @@ export default {
         'space': ['"SpaceAge"', 'monospace'],
       },
       animation: {
-        'grid-flow': 'grid-flow 20s linear infinite',
-        'glow': 'glow 2s ease-in-out infinite alternate',
-        'float': 'float 6s ease-in-out infinite',
-        'blink': 'blink 1s step-end infinite',
+        'grid-flow':  'grid-flow 20s linear infinite',
+        'glow':       'glow 2s ease-in-out infinite alternate',
+        'float':      'float 6s ease-in-out infinite',
+        'blink':      'blink 1s step-end infinite',
+        'flicker':    'flicker 0.45s ease-out forwards',
       },
       keyframes: {
+        'flicker': {
+          '0%':   { filter: 'brightness(3) saturate(2)',   opacity: '0.6' },
+          '15%':  { filter: 'brightness(1.8)',             opacity: '1'   },
+          '35%':  { filter: 'brightness(2.2) saturate(1.5)', opacity: '0.8' },
+          '60%':  { filter: 'brightness(1.3)',             opacity: '1'   },
+          '100%': { filter: 'brightness(1) saturate(1)',   opacity: '1'   },
+        },
         'grid-flow': {
           '0%': { transform: 'translateY(0)' },
           '100%': { transform: 'translateY(-50%)' }

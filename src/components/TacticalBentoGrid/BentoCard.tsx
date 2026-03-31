@@ -1,6 +1,7 @@
 import {
   createSignal,
   createMemo,
+  onMount,
   For,
   Show,
   type Component,
@@ -43,7 +44,7 @@ const RadarPulse: Component<{ color: string }> = (props) => (
 
 const TechPill: Component<{ label: string; dimmed: boolean }> = (props) => (
   <span
-    class="px-2 py-0.5 rounded text-[10px] font-mono tracking-wider border transition-all duration-300"
+    class="px-2 py-0.5 rounded text-[11px] font-mono tracking-wider border transition-all duration-300"
     classList={{
       "border-white/10 text-slate-500 bg-white/[0.02]": props.dimmed,
       "border-cyan-500/30 text-cyan-400/80 bg-cyan-500/5": !props.dimmed,
@@ -110,7 +111,7 @@ const OperatorCard: Component<{
         <h2 class="text-2xl font-bold text-white tracking-tight mb-1">
           {props.item.name}
         </h2>
-        <p class="text-xs font-mono text-slate-400 leading-relaxed">
+        <p class="text-sm font-mono text-slate-400 leading-relaxed">
           {props.item.description}
         </p>
       </div>
@@ -120,7 +121,7 @@ const OperatorCard: Component<{
         <For each={stats}>
           {(stat) => (
             <div class="rounded border border-white/5 bg-white/[0.02] px-3 py-2">
-              <div class="text-[9px] font-mono tracking-[0.2em] text-slate-500 mb-0.5">
+              <div class="text-[11px] font-mono tracking-[0.2em] text-slate-500 mb-0.5">
                 {stat.label}
               </div>
               <div
@@ -160,8 +161,8 @@ const ProjectCardContent: Component<{
 
   return (
     <div class="h-full flex flex-col">
-      {/* Image pane — only on featured or if image provided */}
-      <Show when={props.item.image && props.item.featured}>
+      {/* Image pane — any card with an image */}
+      <Show when={!!props.item.image}>
         <div class="relative overflow-hidden h-40 rounded-t-lg">
           <img
             src={props.item.image}
@@ -186,39 +187,69 @@ const ProjectCardContent: Component<{
               }}
             />
             <span
-              class="text-[9px] font-mono tracking-[0.2em]"
+              class="text-[11px] font-mono tracking-[0.2em]"
               classList={{ [meta().color]: true }}
             >
               {meta().label}
             </span>
           </div>
-          <div class="flex items-center gap-2">
+          <div class="flex items-center gap-1.5">
             <Show when={props.item.github}>
               <button
-                class="text-slate-500 hover:text-slate-200 transition-colors"
+                class="group flex items-center gap-1 px-2 py-1 rounded border transition-all duration-200"
+                style={{
+                  "border-color": `${props.item.accentColor}30`,
+                  background: "transparent",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = `${props.item.accentColor}70`
+                  e.currentTarget.style.background = `${props.item.accentColor}10`
+                  e.currentTarget.style.boxShadow = `0 0 8px ${props.item.accentColor}20`
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = `${props.item.accentColor}30`
+                  e.currentTarget.style.background = "transparent"
+                  e.currentTarget.style.boxShadow = "none"
+                }}
                 onClick={(e) => { e.stopPropagation(); openExternal(props.item.github!, `${props.item.name} — GitHub`) }}
               >
-                <GithubIcon />
+                <span style={{ color: `${props.item.accentColor}80` }}><GithubIcon /></span>
+                <span class="font-mono text-[9px] tracking-widest" style={{ color: `${props.item.accentColor}70` }}>SRC</span>
               </button>
             </Show>
             <Show when={props.item.link && !props.item.link.startsWith("Coming")}>
               <button
-                class="text-slate-500 hover:text-slate-200 transition-colors"
+                class="flex items-center gap-1 px-2 py-1 rounded border transition-all duration-200"
+                style={{
+                  "border-color": `${props.item.accentColor}30`,
+                  background: "transparent",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = `${props.item.accentColor}70`
+                  e.currentTarget.style.background = `${props.item.accentColor}10`
+                  e.currentTarget.style.boxShadow = `0 0 8px ${props.item.accentColor}20`
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = `${props.item.accentColor}30`
+                  e.currentTarget.style.background = "transparent"
+                  e.currentTarget.style.boxShadow = "none"
+                }}
                 onClick={(e) => { e.stopPropagation(); openExternal(props.item.link!, props.item.name) }}
               >
-                <ExternalLinkIcon />
+                <span style={{ color: `${props.item.accentColor}80` }}><ExternalLinkIcon /></span>
+                <span class="font-mono text-[9px] tracking-widest" style={{ color: `${props.item.accentColor}70` }}>LAUNCH</span>
               </button>
             </Show>
           </div>
         </div>
 
         {/* Title */}
-        <h3 class="text-base font-semibold text-white mb-2 leading-tight">
+        <h3 class="text-lg font-semibold text-white mb-2 leading-tight">
           {props.item.name}
         </h3>
 
         {/* Description */}
-        <p class="text-xs text-slate-400 leading-relaxed flex-1 mb-4">
+        <p class="text-sm text-slate-400 leading-relaxed flex-1 mb-4">
           {props.item.description}
         </p>
 
@@ -242,11 +273,18 @@ const ProjectCardContent: Component<{
 
 export interface BentoCardProps {
   item: BentoItem
+  index: number
 }
 
 const BentoCard: Component<BentoCardProps> = (props) => {
   const [mousePos, setMousePos] = createSignal({ x: 50, y: 50 })
   const [isHovered, setIsHovered] = createSignal(false)
+  const [visible, setVisible] = createSignal(false)
+
+  onMount(() => {
+    // Stagger: each card waits 70ms × its index after the section's ElectricReveal (360ms)
+    setTimeout(() => setVisible(true), 360 + props.index * 70)
+  })
 
   // Spotlight background follows mouse cursor — the Linear.app effect
   const spotlightStyle = createMemo(() => ({
@@ -288,8 +326,15 @@ const BentoCard: Component<BentoCardProps> = (props) => {
   return (
     <div
       // col-span-12: full-width on mobile; item.colSpan (e.g. "lg:col-span-7") takes over at lg
-      class={`relative rounded-lg border bg-[#0d0d0d] overflow-hidden transition-all duration-300 cursor-default col-span-12 ${props.item.colSpan}`}
-      style={borderStyle()}
+      class={`relative rounded-lg border bg-[#0d0d0d] overflow-hidden cursor-default col-span-12 ${props.item.colSpan}`}
+      style={{
+        ...borderStyle(),
+        opacity:    visible() ? "1" : "0",
+        transform:  visible() ? "translateY(0) scale(1)" : "translateY(14px) scale(0.98)",
+        transition: visible()
+          ? "opacity 0.4s ease-out, transform 0.4s cubic-bezier(0.16,1,0.3,1), border-color 0.3s, box-shadow 0.3s"
+          : "none",
+      }}
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}

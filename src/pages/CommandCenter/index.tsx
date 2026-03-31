@@ -112,7 +112,7 @@ const SectionHeader: Component<{ section: SectionId }> = (props) => {
 
 // ─── Fade-in wrapper ──────────────────────────────────────────────────────────
 const FadeIn: Component<{ children: any }> = (props) => (
-  <div class="animate-fade-in" style={{ "animation-duration": "0.2s" }}>
+  <div class="animate-fade-in flex-1 flex flex-col min-h-0" style={{ "animation-duration": "0.2s" }}>
     {props.children}
   </div>
 )
@@ -192,17 +192,14 @@ const CommandCenter: Component = () => {
         </div>
 
         {/* Main content */}
-        <main
-          class="flex-1 overflow-y-auto overflow-x-hidden flex flex-col"
-          style={{ "scrollbar-width": "thin", "scrollbar-color": "rgba(34,211,238,0.15) transparent" }}
-        >
+        <main class="flex-1 overflow-hidden flex flex-col">
           {/* Sticky section header — only on non-hero sections */}
           <Show when={!isHero()}>
             <SectionHeader section={commandState.activeSection} />
           </Show>
 
           {/* Section content with fade-in on each swap */}
-          <div class="flex-1">
+          <div class="flex-1 flex flex-col min-h-0 overflow-hidden">
             <Show when={commandState.activeSection === "hero"}>
               <FadeIn><HeroSection /></FadeIn>
             </Show>

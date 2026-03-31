@@ -149,7 +149,7 @@ const YieldedIcon: Component<DynamicSimpleIconProps> = (props) => {
         class={`flex flex-row bg-[${backgroundColor}] items-center justify-center rounded-full`}
       >
         <div innerHTML={svgElement?.outerHTML} class="w-7 h-7 my-1 mr-1" />
-        <div class="my-1 text-xl" style={{ color: textColor }}>
+        <div class="my-1 text-sm font-mono tracking-wider" style={{ color: textColor }}>
           {props.children}
         </div>
       </div>

@@ -34,7 +34,7 @@ export const BENTO_ITEMS: BentoItem[] = [
     description:
       "Game-analytics assistant for Arkham Horror LCG — 1 000+ cards indexed via FastAPI, PostgreSQL full-text search, and an Angular SPA.",
     technologies: ["Python", "FastAPI", "PostgreSQL", "Angular", "Flutter"],
-    link: "https://arkham-analysis.arthur.dev/",
+    link: "https://arkham-analysis.arthurlau.dev/",
     github: "https://github.com/hiiamarthur/arkham-analysis",
     image: "/images/arkham.png",
     status: "ACTIVE",
@@ -80,7 +80,7 @@ export const BENTO_ITEMS: BentoItem[] = [
     technologies: ["Python", "FastAPI", "Flutter", "PostgreSQL", "GPT-4"],
     github: "https://github.com/reals-itinerary-planner",
     image: "/images/reals.png",
-    status: "WIP",
+    status: "ACTIVE",
     starNode: "Python",
     accentColor: "#34d399",
     colSpan: "lg:col-span-4",
@@ -102,6 +102,22 @@ export const BENTO_ITEMS: BentoItem[] = [
   },
 
   // ── Row 3 ─────────────────────────────────────────────────────────────────
+  {
+    id: "vigilant-stream",
+    type: "project",
+    name: "Vigilant Stream",
+    description:
+      "Distributed, fault-tolerant risk ingestion engine for high-velocity security signals — Python/FastAPI ingest layer → RabbitMQ → Elixir/OTP Broadway pipeline → Phoenix LiveView dashboard with adaptive back-pressure and OTP supervision trees.",
+    technologies: ["Elixir", "Python", "RabbitMQ", "Phoenix", "FastAPI", "Nginx", "Docker"],
+    github: "https://github.com/hiiamarthur/vigilant-stream",
+    status: "DEPLOYED",
+    starNode: "Elixir",
+    accentColor: "#f97316",
+    colSpan: "lg:col-span-12",
+    featured: true,
+  },
+
+  // ── Row 4 ─────────────────────────────────────────────────────────────────
   {
     id: "chord",
     type: "project",

@@ -13,7 +13,7 @@ export const projects = [
     name: "Arkham Analysis",
     description:
       "Building a data-analystic game asstant for Arkham Horror LCG over 1000+ cards by FastAPI, Python, PostgresSQL and Angular",
-    link: "https:/arkham-analysis.arthur.dev/",
+    link: "https:/arkham-analysis.arthurlau.dev/",
     image: "/images/arkham.png",
     github: "https://github.com/hiiamarthur/arkham-analysis",
     technologies: ["FastAPI", "Python", "Flutter", "PostgreSQL","Angular"],

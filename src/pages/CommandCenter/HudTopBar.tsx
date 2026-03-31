@@ -1,10 +1,10 @@
-import { createSignal, onCleanup, onMount, type Component } from "solid-js"
+import { createSignal, onCleanup, onMount, Show, type Component } from "solid-js"
 
 // ─── Rotating ticker messages ─────────────────────────────────────────────────
 const TICKER: string[] = [
   "REACTIVE RENDERING ENGINE: SOLID-JS v1.9  //  ACTIVE",
   "AI SUBSYSTEMS: AGENTIC PIPELINE  //  ONLINE",
-  "KNOWLEDGE GRAPH: 27 NODES · 37 EDGES  //  MAPPED",
+  "KNOWLEDGE GRAPH: 34 NODES · 61 EDGES  //  MAPPED",
   "FULL-STACK MATRIX: 7+ YEARS OPERATIONAL",
   "DEPLOYMENT GRID: AWS · AZURE · DOCKER  //  NOMINAL",
   "SECURE CHANNEL: AES-256-GCM  //  ESTABLISHED",
@@ -34,6 +34,63 @@ const RotatingTicker: Component = () => {
     >
       {TICKER[idx()]}
     </span>
+  )
+}
+
+// ─── Battery indicator ────────────────────────────────────────────────────────
+const BatteryIndicator: Component = () => {
+  const [level, setLevel]       = createSignal<number | null>(null)
+  const [charging, setCharging] = createSignal(false)
+
+  onMount(async () => {
+    if (!("getBattery" in navigator)) return
+    try {
+      const bat = await (navigator as any).getBattery()
+      const update = () => { setLevel(Math.round(bat.level * 100)); setCharging(bat.charging) }
+      update()
+      bat.addEventListener("levelchange",    update)
+      bat.addEventListener("chargingchange", update)
+      onCleanup(() => {
+        bat.removeEventListener("levelchange",    update)
+        bat.removeEventListener("chargingchange", update)
+      })
+    } catch {}
+  })
+
+  const color = () => {
+    const l = level()
+    if (l === null) return "#475569"
+    if (charging()) return "#34d399"
+    if (l > 50) return "#34d399"
+    if (l > 20) return "#f59e0b"
+    return "#f87171"
+  }
+
+  const barWidth = () => `${Math.max(2, (level() ?? 0))}%`
+
+  return (
+    <Show when={level() !== null}>
+      <div class="flex items-center gap-1.5 shrink-0">
+        {/* Battery shell */}
+        <div class="relative flex items-center" style={{ width: "22px", height: "11px" }}>
+          <div
+            class="rounded-sm border flex-1 h-full relative overflow-hidden"
+            style={{ "border-color": `${color()}50`, width: "20px" }}
+          >
+            <div
+              class="absolute left-0 top-0 bottom-0 transition-all duration-1000"
+              style={{ width: barWidth(), background: color(), opacity: "0.85" }}
+            />
+          </div>
+          {/* Terminal nub */}
+          <div class="w-[2px] h-[5px] rounded-r-sm" style={{ background: `${color()}50` }} />
+        </div>
+        {/* Percentage + bolt */}
+        <span class="font-mono text-[9px] tabular-nums" style={{ color: color() }}>
+          {charging() ? "⚡" : ""}{level()}%
+        </span>
+      </div>
+    </Show>
   )
 }
 
@@ -79,11 +136,13 @@ const HudTopBar: Component = () => {
         <RotatingTicker />
       </div>
 
-      {/* Right: operator + clock */}
+      {/* Right: operator + power + clock */}
       <div class="flex items-center gap-3 shrink-0">
         <span class="font-mono text-[9px] text-slate-600 tracking-wider hidden md:inline uppercase">
           Operator: Arthur Lau
         </span>
+        <div class="w-px h-4 bg-white/8" />
+        <BatteryIndicator />
         <div class="w-px h-4 bg-white/8" />
         <div class="flex items-center gap-1.5">
           <span class="font-mono text-[10px] text-cyan-600 tabular-nums tracking-widest">{time()}</span>
