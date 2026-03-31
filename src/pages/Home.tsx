@@ -9,6 +9,7 @@ import ExperienceCard from "../components/experience/ExperienceCard";
 import { projects } from "../data/projects";
 import { FaBrandsGithub, FaSolidEnvelope, FaSolidPhone } from "solid-icons/fa";
 import YieldedIcon from "../components/yieldedIcon";
+import TacticalBentoGrid from "../components/TacticalBentoGrid";
 const Home: Component = () => {
   const [isVisible, setIsVisible] = createSignal(false);
 
@@ -111,8 +112,9 @@ const Home: Component = () => {
       </section>
 
       <a href="#projects"></a>
-      <section id="projects" class="hero min-h-screen">
-        <h1 class="animate-fade-in-left self-end text-end">Self Projects</h1>
+      <section id="projects" class="min-h-screen py-8">
+        <h1 class="animate-fade-in-left self-end text-end px-4">Self Projects</h1>
+        <TacticalBentoGrid />
         <div class="cards">
           {projects.map((project) => (
             <div class="card">

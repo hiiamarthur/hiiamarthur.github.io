@@ -6,6 +6,9 @@ export default {
   ],
   safelist: [
     'animate-fade-in-right',
+    // BentoCard col-spans — both mobile default and lg: responsive overrides
+    'col-span-12',
+    'lg:col-span-4', 'lg:col-span-5', 'lg:col-span-6', 'lg:col-span-7', 'lg:col-span-8', 'lg:col-span-12',
   ],
   theme: {
     extend: {
@@ -31,6 +34,11 @@ export default {
         'blink': {
           '0%, 100%': { opacity: '1' },
           '50%': { opacity: '0' }
+        },
+        // Radar pulse: ring expands from r=8 to r=28 while fading out
+        'radar': {
+          '0%':   { r: '8',  opacity: '0.8' },
+          '100%': { r: '28', opacity: '0'   },
         },
       },
       boxShadow: {
