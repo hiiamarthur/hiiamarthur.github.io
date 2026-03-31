@@ -12,6 +12,10 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        // matches the @font-face already declared in public/styles/index.css
+        'space': ['"SpaceAge"', 'monospace'],
+      },
       animation: {
         'grid-flow': 'grid-flow 20s linear infinite',
         'glow': 'glow 2s ease-in-out infinite alternate',

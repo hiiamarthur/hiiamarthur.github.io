@@ -1,10 +1,7 @@
 import styles from './App.module.css';
 import { Router, Route } from '@solidjs/router';
 import { Show } from 'solid-js';
-import Home from './pages/Home';
-import Experience from './pages/Experience';
-import Projects from './pages/Projects';
-import Contact from './pages/Contact';
+import CommandCenter from './pages/CommandCenter';
 import Dashboard from './pages/Dashboard';
 import SystemBootLoader from './components/SystemBootLoader';
 import { commandState } from './store/commandStore';
@@ -20,11 +17,8 @@ function App() {
       {/* Main app — mounts only after boot, preventing wasted renders */}
       <Show when={commandState.bootPhase === 'complete'}>
         <Router>
-          <Route path="/" component={Home} />
+          <Route path="/" component={CommandCenter} />
           <Route path="/dashboard" component={Dashboard} />
-          <Route path="/experience" component={Experience} />
-          <Route path="/projects" component={Projects} />
-          <Route path="/contact" component={Contact} />
         </Router>
       </Show>
     </div>
