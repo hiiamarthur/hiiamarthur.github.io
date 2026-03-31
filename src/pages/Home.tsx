@@ -10,6 +10,7 @@ import { projects } from "../data/projects";
 import { FaBrandsGithub, FaSolidEnvelope, FaSolidPhone } from "solid-icons/fa";
 import YieldedIcon from "../components/yieldedIcon";
 import TacticalBentoGrid from "../components/TacticalBentoGrid";
+import StarMapGraph from "../components/StarMapGraph";
 const Home: Component = () => {
   const [isVisible, setIsVisible] = createSignal(false);
 
@@ -115,6 +116,7 @@ const Home: Component = () => {
       <section id="projects" class="min-h-screen py-8">
         <h1 class="animate-fade-in-left self-end text-end px-4">Self Projects</h1>
         <TacticalBentoGrid />
+        <StarMapGraph />
         <div class="cards">
           {projects.map((project) => (
             <div class="card">
