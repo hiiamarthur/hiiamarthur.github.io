@@ -9,25 +9,28 @@ function detectClient(): { browser: string; os: string } {
   let browser = "Unknown"
   let os = "Unknown"
 
+  const shortBrand = (brand: string) =>
+    brand.replace("Google ", "").replace("Microsoft ", "")
+
   if (uaData?.brands) {
     os = uaData.platform ?? "Unknown"
     const real = (uaData.brands as { brand: string; version: string }[]).find(
       (b) => !b.brand.includes("Not") && b.brand !== "Chromium"
     )
-    browser = real ? `${real.brand} ${real.version}` : "Chromium"
+    browser = real ? `${shortBrand(real.brand)} ${real.version}` : "Chromium"
   } else {
     const ua = navigator.userAgent
-    if (ua.includes("Firefox/"))       browser = "Firefox " + (ua.match(/Firefox\/([\d]+)/)?.[1] ?? "")
-    else if (ua.includes("Edg/"))      browser = "Edge "    + (ua.match(/Edg\/([\d]+)/)?.[1]     ?? "")
-    else if (ua.includes("Chrome/"))   browser = "Chrome "  + (ua.match(/Chrome\/([\d]+)/)?.[1]  ?? "")
+    if (ua.includes("Firefox/"))       browser = "Firefox "  + (ua.match(/Firefox\/([\d]+)/)?.[1]  ?? "")
+    else if (ua.includes("Edg/"))      browser = "Edge "     + (ua.match(/Edg\/([\d]+)/)?.[1]      ?? "")
+    else if (ua.includes("Chrome/"))   browser = "Chrome "   + (ua.match(/Chrome\/([\d]+)/)?.[1]   ?? "")
     else if (ua.includes("Safari/") && ua.includes("Version/"))
-                                        browser = "Safari "  + (ua.match(/Version\/([\d]+)/)?.[1] ?? "")
+                                        browser = "Safari "  + (ua.match(/Version\/([\d]+)/)?.[1]  ?? "")
 
-    if      (ua.includes("Windows"))                             os = "Windows"
-    else if (ua.includes("Mac OS X"))                            os = "macOS"
-    else if (ua.includes("Android"))                             os = "Android"
-    else if (ua.includes("iPhone") || ua.includes("iPad"))       os = "iOS"
-    else if (ua.includes("Linux"))                               os = "Linux"
+    if      (ua.includes("Windows"))                           os = "Windows"
+    else if (ua.includes("Mac OS X"))                          os = "macOS"
+    else if (ua.includes("Android"))                           os = "Android"
+    else if (ua.includes("iPhone") || ua.includes("iPad"))     os = "iOS"
+    else if (ua.includes("Linux"))                             os = "Linux"
   }
 
   return { browser, os }
@@ -227,15 +230,21 @@ const StatusColumn: Component = () => {
         {/* Client info */}
         <div>
           <div class="font-mono text-[8px] tracking-[0.2em] text-slate-700 uppercase mb-2">Client</div>
-          <div class="flex flex-col gap-1">
-            <div class="flex items-center justify-between">
-              <span class="font-mono text-[7px] tracking-wider text-slate-700 uppercase">OS</span>
-              <span class="font-mono text-[8px] text-slate-500 tracking-wide">{CLIENT.os}</span>
+          <div class="flex flex-col gap-1.5">
+            {/* OS pill */}
+            <div class="flex items-center gap-2">
+              <span class="font-mono text-[7px] tracking-[0.2em] text-slate-700 uppercase w-5">OS</span>
+              <span class="flex items-center gap-1 px-2 py-0.5 rounded border border-violet-500/20 bg-violet-500/[0.06]">
+                <span class="w-1 h-1 rounded-full bg-violet-400/60" />
+                <span class="font-mono text-[9px] text-violet-300/70 tracking-wide">{CLIENT.os}</span>
+              </span>
             </div>
-            <div class="flex items-center justify-between">
-              <span class="font-mono text-[7px] tracking-wider text-slate-700 uppercase">UA</span>
-              <span class="font-mono text-[8px] text-slate-500 tracking-wide truncate max-w-[90px]" title={CLIENT.browser}>
-                {CLIENT.browser}
+            {/* Browser pill */}
+            <div class="flex items-center gap-2">
+              <span class="font-mono text-[7px] tracking-[0.2em] text-slate-700 uppercase w-5">UA</span>
+              <span class="flex items-center gap-1 px-2 py-0.5 rounded border border-cyan-500/20 bg-cyan-500/[0.06]">
+                <span class="w-1 h-1 rounded-full bg-cyan-400/60" />
+                <span class="font-mono text-[9px] text-cyan-300/70 tracking-wide">{CLIENT.browser}</span>
               </span>
             </div>
           </div>

@@ -88,7 +88,7 @@ const HeroSection: Component = () => {
           {QUICK_LINKS.map((link) => (
             <button
               onClick={() => setCommandState("activeSection", link.section)}
-              class="group relative overflow-hidden flex flex-col items-center px-7 py-4 rounded border border-white/[0.08] bg-white/[0.02] hover:border-cyan-500/40 hover:bg-cyan-500/[0.05] transition-all duration-300 min-w-[110px]"
+              class="group relative overflow-hidden flex flex-col items-center px-7 py-4 rounded border border-white/60 bg-white/[0.04] hover:border-cyan-400 hover:bg-cyan-500/[0.08] transition-all duration-300 min-w-[110px]"
             >
               <div class="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-500 bg-gradient-to-r from-transparent via-cyan-400/[0.08] to-transparent pointer-events-none" />
               <span class="font-mono text-[11px] tracking-[0.3em] text-cyan-500/70 group-hover:text-cyan-400 transition-colors uppercase">
