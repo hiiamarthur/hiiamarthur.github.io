@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://arthurlau.dev/sitemap.xml

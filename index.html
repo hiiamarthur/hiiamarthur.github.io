@@ -1,26 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Arthur's Portfolio">
-    <meta name="author" content="Arthur">
-    <title>Arthur's Portfolio</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
-    <link rel="icon" sizes="16x16" href="/images/favicon-16x16.png" />
-    <link rel="icon" sizes="32x32" href="/images/favicon-32x32.png" />
-</head>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-QET40KFFWQ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  gtag('config', 'G-QET40KFFWQ');
-</script>
+  <!-- Primary SEO -->
+  <title>Arthur Lau — Senior Software Engineer | Full-Stack · Agentic AI · Distributed Systems</title>
+  <meta name="description" content="Arthur Lau is a Senior Software Engineer based in Toronto, CA specialising in full-stack development, Agentic AI pipelines, and distributed systems. 7+ years across React, Next.js, Elixir, .NET, Python, and cloud infrastructure." />
+  <meta name="author" content="Arthur Lau" />
+  <meta name="robots" content="index, follow" />
+  <meta name="keywords" content="Arthur Lau, Senior Software Engineer, Full-Stack Developer, Agentic AI, Elixir, React, Next.js, TypeScript, Python, .NET, Toronto, Software Engineer Portfolio" />
+  <link rel="canonical" href="https://arthurlau.dev/" />
+
+  <!-- Open Graph — LinkedIn, Slack, Facebook previews -->
+  <meta property="og:type"         content="website" />
+  <meta property="og:url"          content="https://arthurlau.dev/" />
+  <meta property="og:title"        content="Arthur Lau — Senior Software Engineer" />
+  <meta property="og:description"  content="Senior Software Engineer in Toronto specialising in full-stack development, Agentic AI, and distributed systems." />
+  <meta property="og:image"        content="https://arthurlau.dev/images/photo.png" />
+  <meta property="og:image:alt"    content="Arthur Lau — Senior Software Engineer" />
+  <meta property="og:image:width"  content="800" />
+  <meta property="og:image:height" content="800" />
+  <meta property="og:site_name"    content="Arthur Lau" />
+  <meta property="og:locale"       content="en_CA" />
+
+  <!-- Twitter / X Card -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="Arthur Lau — Senior Software Engineer" />
+  <meta name="twitter:description" content="Senior Software Engineer in Toronto specialising in full-stack development, Agentic AI, and distributed systems." />
+  <meta name="twitter:image"       content="https://arthurlau.dev/images/photo.png" />
+
+  <!-- Mobile browser chrome -->
+  <meta name="theme-color" content="#0a0a0a" />
+
+  <!-- Favicons -->
+  <link rel="icon"             href="/images/favicon.ico"       type="image/x-icon" />
+  <link rel="icon"             href="/images/favicon-16x16.png" type="image/png" sizes="16x16" />
+  <link rel="icon"             href="/images/favicon-32x32.png" type="image/png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="/images/favicon-32x32.png" />
+
+  <!-- JSON-LD structured data — Person schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Arthur Lau",
+    "url": "https://arthurlau.dev",
+    "image": "https://arthurlau.dev/images/photo.png",
+    "email": "pingtunglau@gmail.com",
+    "jobTitle": "Senior Software Engineer",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "IVM Tech Limited"
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Toronto",
+      "addressRegion": "ON",
+      "addressCountry": "CA"
+    },
+    "alumniOf": {
+      "@type": "CollegeOrUniversity",
+      "name": "Chinese University of Hong Kong"
+    },
+    "sameAs": [
+      "https://github.com/hiiamarthur",
+      "https://linkedin.com/in/arthurlau"
+    ],
+    "knowsAbout": [
+      "React", "Next.js", "TypeScript", "JavaScript",
+      "Elixir", "Phoenix", "Python", "FastAPI",
+      "C#", ".NET", "Flutter", "SolidJS",
+      "Distributed Systems", "Agentic AI",
+      "Docker", "Kubernetes", "AWS", "Azure"
+    ]
+  }
+  </script>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QET40KFFWQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-QET40KFFWQ');
+  </script>
+</head>
 <body>
-    <div id="root"></div>
-    <script src="/src/index.tsx" type="module"></script>
+  <div id="root"></div>
+  <script src="/src/index.tsx" type="module"></script>
 </body>
 </html>
