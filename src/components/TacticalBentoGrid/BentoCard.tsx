@@ -5,7 +5,7 @@ import {
   Show,
   type Component,
 } from "solid-js"
-import { setCommandState } from "../../store/commandStore"
+import { setCommandState, openExternal } from "../../store/commandStore"
 import { type BentoItem, STATUS_META } from "./bentoConfig"
 
 // ─── Radar Pulse SVG ─────────────────────────────────────────────────────────
@@ -194,26 +194,20 @@ const ProjectCardContent: Component<{
           </div>
           <div class="flex items-center gap-2">
             <Show when={props.item.github}>
-              <a
-                href={props.item.github}
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
                 class="text-slate-500 hover:text-slate-200 transition-colors"
-                onClick={(e) => e.stopPropagation()}
+                onClick={(e) => { e.stopPropagation(); openExternal(props.item.github!, `${props.item.name} — GitHub`) }}
               >
                 <GithubIcon />
-              </a>
+              </button>
             </Show>
             <Show when={props.item.link && !props.item.link.startsWith("Coming")}>
-              <a
-                href={props.item.link}
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
                 class="text-slate-500 hover:text-slate-200 transition-colors"
-                onClick={(e) => e.stopPropagation()}
+                onClick={(e) => { e.stopPropagation(); openExternal(props.item.link!, props.item.name) }}
               >
                 <ExternalLinkIcon />
-              </a>
+              </button>
             </Show>
           </div>
         </div>

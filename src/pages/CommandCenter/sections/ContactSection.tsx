@@ -1,32 +1,33 @@
 import { type Component } from "solid-js"
+import { openExternal } from "../../../store/commandStore"
 
 const CHANNELS = [
   {
     label: "EMAIL",
     value: "pingtunglau@gmail.com",
     hint: "Primary channel",
-    action: () => { window.location.href = "mailto:pingtunglau@gmail.com" },
+    action: () => openExternal("mailto:pingtunglau@gmail.com", "EMAIL"),
     accentColor: "#67e8f9",
   },
   {
     label: "GITHUB",
     value: "github.com/hiiamarthur",
     hint: "Source repositories",
-    action: () => { window.open("https://github.com/hiiamarthur", "_blank") },
+    action: () => openExternal("https://github.com/hiiamarthur", "GITHUB"),
     accentColor: "#a78bfa",
   },
   {
     label: "LINKEDIN",
     value: "linkedin.com/in/arthurlau",
     hint: "Professional network",
-    action: () => { window.open("https://www.linkedin.com/in/arthurlau/", "_blank") },
+    action: () => openExternal("https://www.linkedin.com/in/arthurlau/", "LINKEDIN"),
     accentColor: "#818cf8",
   },
   {
     label: "RESUME",
     value: "Resume.pdf",
     hint: "Download credentials",
-    action: () => { window.open("/files/Resume.pdf", "_blank") },
+    action: () => openExternal("/files/Resume.pdf", "RESUME"),
     accentColor: "#34d399",
   },
 ]

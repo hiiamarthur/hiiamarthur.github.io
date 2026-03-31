@@ -1,5 +1,5 @@
 import { For, type Component } from "solid-js"
-import { type SectionId } from "../../store/commandStore"
+import { openExternal, type SectionId } from "../../store/commandStore"
 
 // ─── Section config ───────────────────────────────────────────────────────────
 
@@ -115,18 +115,16 @@ const SidePanel: Component<{
 
     {/* Resume link */}
     <div class="px-2 py-3 border-t border-white/5">
-      <a
-        href="/files/Resume.pdf"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="group relative overflow-hidden flex items-center justify-between w-full px-3 py-2.5 rounded border border-emerald-500/20 bg-emerald-500/[0.03] hover:border-emerald-500/40 hover:bg-emerald-500/8 transition-all duration-300"
+      <button
+        onClick={() => openExternal("/files/Resume.pdf", "RESUME")}
+        class="group relative overflow-hidden flex items-center justify-between w-full px-3 py-2.5 rounded border border-emerald-500/20 bg-emerald-500/[0.03] hover:border-emerald-500/40 hover:bg-emerald-500/[0.08] transition-all duration-300"
       >
-        <div class="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-500 bg-gradient-to-r from-transparent via-emerald-400/8 to-transparent pointer-events-none" />
+        <div class="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-500 bg-gradient-to-r from-transparent via-emerald-400/[0.08] to-transparent pointer-events-none" />
         <span class="font-mono text-[10px] tracking-[0.2em] text-emerald-500 group-hover:text-emerald-400 transition-colors uppercase relative">
           Resume ↗
         </span>
         <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-      </a>
+      </button>
     </div>
   </aside>
 )
