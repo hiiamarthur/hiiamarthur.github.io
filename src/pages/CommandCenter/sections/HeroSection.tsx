@@ -10,6 +10,7 @@ const QUICK_LINKS: { label: string; section: SectionId; hint: string }[] = [
   { section: "experience", label: "OPS LOG",  hint: "Mission History"  },
   { section: "projects",   label: "TACTICAL", hint: "Deployed Systems" },
   { section: "starmap",    label: "STAR MAP", hint: "Knowledge Graph"  },
+  { section: "commits",    label: "GIT LOG",  hint: "Commit Feed"      },
   { section: "contact",    label: "COMMS",    hint: "Open Channel"     },
 ]
 
@@ -82,13 +83,13 @@ const HeroSection: Component = () => {
 
         {/* ── Quick-launch panel ── */}
         <div
-          class="flex flex-wrap justify-center gap-3 max-w-xl transition-all duration-700 delay-200"
+          class="grid grid-cols-2 sm:grid-cols-3 gap-3 max-w-xl w-full transition-all duration-700 delay-200"
           style={{ opacity: done() ? "1" : "0", transform: done() ? "translateY(0)" : "translateY(10px)" }}
         >
           {QUICK_LINKS.map((link) => (
             <button
               onClick={() => setCommandState("activeSection", link.section)}
-              class="group relative overflow-hidden flex flex-col items-center px-7 py-4 rounded border border-white/60 bg-white/[0.04] hover:border-cyan-400 hover:bg-cyan-500/[0.08] transition-all duration-300 min-w-[110px]"
+              class="group relative overflow-hidden flex flex-col items-center w-full px-4 py-4 rounded border border-white/60 bg-white/[0.04] hover:border-cyan-400 hover:bg-cyan-500/[0.08] transition-all duration-300"
             >
               <div class="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-500 bg-gradient-to-r from-transparent via-cyan-400/[0.08] to-transparent pointer-events-none" />
               <span class="font-mono text-[11px] tracking-[0.3em] text-cyan-500/70 group-hover:text-cyan-400 transition-colors uppercase">

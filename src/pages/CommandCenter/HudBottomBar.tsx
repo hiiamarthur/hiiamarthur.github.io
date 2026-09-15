@@ -8,6 +8,7 @@ const SECTION_COMMANDS: Record<SectionId, string> = {
   experience: "less ./ops.log",
   projects:   "ls -la ./tactical/",
   starmap:    "render star_map --2d",
+  commits:    "git log --all --oneline -n 40",
   contact:    "ssh comms@arthurlau.dev",
 }
 

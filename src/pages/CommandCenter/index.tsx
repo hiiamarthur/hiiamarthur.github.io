@@ -12,10 +12,11 @@ import AboutSection      from "./sections/AboutSection"
 import ExperienceSection from "./sections/ExperienceSection"
 import ProjectsSection   from "./sections/ProjectsSection"
 import StarMapSection    from "./sections/StarMapSection"
+import CommitsSection    from "./sections/CommitsSection"
 import ContactSection    from "./sections/ContactSection"
 
 // ─── Section order (for ← → keyboard nav) ────────────────────────────────────
-const SECTION_ORDER: SectionId[] = ["hero", "about", "experience", "projects", "starmap", "contact"]
+const SECTION_ORDER: SectionId[] = ["hero", "about", "experience", "projects", "starmap", "commits", "contact"]
 
 
 // ─── Section header metadata ──────────────────────────────────────────────────
@@ -25,7 +26,8 @@ const SECTION_TITLE: Record<SectionId, { codename: string; label: string; color:
   experience: { codename: "02", label: "OPS LOG — Mission History",  color: "#34d399" },
   projects:   { codename: "03", label: "TACTICAL — Deployed Systems",color: "#818cf8" },
   starmap:    { codename: "04", label: "STAR MAP — Knowledge Graph", color: "#a855f7" },
-  contact:    { codename: "05", label: "COMMS — Open Channel",       color: "#f59e0b" },
+  commits:    { codename: "05", label: "GIT LOG — Live Commit Feed", color: "#4ade80" },
+  contact:    { codename: "06", label: "COMMS — Open Channel",       color: "#f59e0b" },
 }
 
 // ─── Section header + back control ───────────────────────────────────────────
@@ -215,6 +217,9 @@ const CommandCenter: Component = () => {
             <Show when={commandState.activeSection === "starmap"}>
               <FadeIn><StarMapSection /></FadeIn>
             </Show>
+            <Show when={commandState.activeSection === "commits"}>
+              <FadeIn><CommitsSection /></FadeIn>
+            </Show>
             <Show when={commandState.activeSection === "contact"}>
               <FadeIn><ContactSection /></FadeIn>
             </Show>
@@ -273,7 +278,7 @@ const CommandCenter: Component = () => {
       <nav class="sm:hidden flex-shrink-0 flex items-stretch border-t border-white/5 bg-[#080808] overflow-x-auto">
         {SECTION_ORDER.map((id) => {
           const labels: Record<SectionId, string> = {
-            hero: "HOME", about: "IDENT", experience: "OPS", projects: "TAC", starmap: "MAP", contact: "COMMS",
+            hero: "HOME", about: "IDENT", experience: "OPS", projects: "TAC", starmap: "MAP", commits: "GIT", contact: "COMMS",
           }
           return (
             <button

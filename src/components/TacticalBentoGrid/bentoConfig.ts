@@ -28,24 +28,6 @@ export interface BentoItem {
 export const BENTO_ITEMS: BentoItem[] = [
   // ── Row 1 ─────────────────────────────────────────────────────────────────
   {
-    id: "tupper",
-    type: "project",
-    name: "tupper-playground",
-    description:
-      "Interactive web app for exploring Tupper's self-referential formula — render custom text and freehand drawings as bitmaps encoded within the formula.",
-    technologies: ["Python", "Streamlit", "NumPy", "Pillow", "Matplotlib", "Cloudflare"],
-    link: "https://tupper.arthurlau.dev",
-    github: "https://github.com/hiiamarthur/tupper-playground",
-    image: "/images/tupper.png",
-    status: "DEPLOYED",
-    starNode: "Python",
-    accentColor: "#eab308",
-    colSpan: "lg:col-span-12",
-    featured: true,
-  },
-
-  // ── Row 2 ─────────────────────────────────────────────────────────────────
-  {
     id: "arkham",
     type: "project",
     name: "Arkham Analysis",
@@ -74,19 +56,20 @@ export const BENTO_ITEMS: BentoItem[] = [
     colSpan: "lg:col-span-5",
   },
 
-  // ── Row 3 ─────────────────────────────────────────────────────────────────
+  // ── Row 2 ─────────────────────────────────────────────────────────────────
   {
-    id: "mozilla-hubs",
+    id: "tupper",
     type: "project",
-    name: "Mozilla Hubs Server",
+    name: "tupper-playground",
     description:
-      "Self-hosted, Dockerised metaverse platform with custom Avatar Maker, first-person view, and concert-ready 3D scenes running Elixir/Phoenix under the hood.",
-    technologies: ["Elixir", "Phoenix", "Docker", "k8s", "React", "Three.js"],
-    github: "https://github.com/hiiamarthur/mozilla-hubs",
-    image: "/images/hubs.jpg",
-    status: "ARCHIVED",
-    starNode: "Elixir",
-    accentColor: "#818cf8",
+      "Interactive web app for exploring Tupper's self-referential formula — render custom text and freehand drawings as bitmaps encoded within the formula.",
+    technologies: ["Python", "Streamlit", "NumPy", "Pillow", "Matplotlib", "Cloudflare"],
+    link: "https://tupper.arthurlau.dev",
+    github: "https://github.com/hiiamarthur/tupper-playground",
+    image: "/images/tupper.png",
+    status: "DEPLOYED",
+    starNode: "Python",
+    accentColor: "#eab308",
     colSpan: "lg:col-span-4",
   },
   {
@@ -163,6 +146,22 @@ export const BENTO_ITEMS: BentoItem[] = [
     starNode: "C#",
     accentColor: "#67e8f9",
     colSpan: "lg:col-span-6",
+  },
+
+  // ── Row 6 ─────────────────────────────────────────────────────────────────
+  {
+    id: "mozilla-hubs",
+    type: "project",
+    name: "Mozilla Hubs Server",
+    description:
+      "Self-hosted, Dockerised metaverse platform with custom Avatar Maker, first-person view, and concert-ready 3D scenes running Elixir/Phoenix under the hood.",
+    technologies: ["Elixir", "Phoenix", "Docker", "k8s", "React", "Three.js"],
+    github: "https://github.com/hiiamarthur/mozilla-hubs",
+    image: "/images/hubs.jpg",
+    status: "ARCHIVED",
+    starNode: "Elixir",
+    accentColor: "#818cf8",
+    colSpan: "lg:col-span-12",
   },
 ]
 

@@ -17,7 +17,8 @@ const NAV_ITEMS: NavItem[] = [
   { id: "experience", codename: "02",  label: "OPS LOG",   sublabel: "Mission History",   accentColor: "#34d399" },
   { id: "projects",   codename: "03",  label: "TACTICAL",  sublabel: "Deployed Systems",  accentColor: "#818cf8" },
   { id: "starmap",    codename: "04",  label: "STAR MAP",  sublabel: "Knowledge Graph",   accentColor: "#a855f7" },
-  { id: "contact",    codename: "05",  label: "COMMS",     sublabel: "Open Channel",      accentColor: "#f59e0b" },
+  { id: "commits",    codename: "05",  label: "GIT LOG",   sublabel: "Commit Feed",       accentColor: "#4ade80" },
+  { id: "contact",    codename: "06",  label: "COMMS",     sublabel: "Open Channel",      accentColor: "#f59e0b" },
 ]
 
 // ─── Corner bracket helper ────────────────────────────────────────────────────
@@ -243,7 +244,7 @@ const ResumeButton: Component = () => {
     <button
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      onClick={() => openExternal("/files/Resume.pdf", "RESUME")}
+      onClick={() => openExternal("https://docs.google.com/document/d/1p5RblZ3LCDfyuCzzxZpOag-XjcErW4d8xsK0Kw5rEDU/", "RESUME")}
       class="relative overflow-hidden flex items-center justify-between w-full px-3 py-2.5 rounded transition-all duration-200"
       style={{
         border: `1px solid ${hovered() ? color + "50" : color + "25"}`,

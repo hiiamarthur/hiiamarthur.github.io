@@ -183,6 +183,7 @@ const SECTION_META: Record<SectionId, { codename: string; color: string }> = {
   experience: { codename: "OPS_LOG",   color: "#34d399" },
   projects:   { codename: "TACTICAL",  color: "#818cf8" },
   starmap:    { codename: "STAR_MAP",  color: "#a855f7" },
+  commits:    { codename: "GIT_LOG",   color: "#4ade80" },
   contact:    { codename: "COMMS",     color: "#f59e0b" },
 }
 

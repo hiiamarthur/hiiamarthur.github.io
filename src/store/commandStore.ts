@@ -1,7 +1,7 @@
 import { createStore } from "solid-js/store"
 
 export type BootPhase = "idle" | "booting" | "complete"
-export type SectionId = "hero" | "about" | "experience" | "projects" | "starmap" | "contact"
+export type SectionId = "hero" | "about" | "experience" | "projects" | "starmap" | "commits" | "contact"
 
 export interface PendingRedirect {
   url: string

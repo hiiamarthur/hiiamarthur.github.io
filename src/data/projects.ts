@@ -9,6 +9,16 @@ export const projects = [
     technologies: ["ChatGPT", "Chrome", "Gemini", "CSS", "Html", "JavaScript"],
   },
   {
+    id: 5,
+    name: "tupper-playground",
+    description:
+      "An interactive web app for exploring Tupper's self-referential formula, allowing users to render custom text and freehand drawings as bitmaps encoded within the formula.",
+    link: "https://tupper.arthurlau.dev",
+    image: "/images/tupper.png",
+    github: "https://github.com/hiiamarthur/tupper-playground",
+    technologies: ["Python", "Streamlit", "NumPy", "Pillow", "Matplotlib", "Cloudflare"],
+  },
+  {
     id: 1,
     name: "Arkham Analysis",
     description:
