@@ -28,6 +28,24 @@ export interface BentoItem {
 export const BENTO_ITEMS: BentoItem[] = [
   // ── Row 1 ─────────────────────────────────────────────────────────────────
   {
+    id: "tupper",
+    type: "project",
+    name: "tupper-playground",
+    description:
+      "Interactive web app for exploring Tupper's self-referential formula — render custom text and freehand drawings as bitmaps encoded within the formula.",
+    technologies: ["Python", "Streamlit", "NumPy", "Pillow", "Matplotlib", "Cloudflare"],
+    link: "https://tupper.arthurlau.dev",
+    github: "https://github.com/hiiamarthur/tupper-playground",
+    image: "/images/tupper.png",
+    status: "DEPLOYED",
+    starNode: "Python",
+    accentColor: "#eab308",
+    colSpan: "lg:col-span-12",
+    featured: true,
+  },
+
+  // ── Row 2 ─────────────────────────────────────────────────────────────────
+  {
     id: "arkham",
     type: "project",
     name: "Arkham Analysis",
@@ -56,7 +74,7 @@ export const BENTO_ITEMS: BentoItem[] = [
     colSpan: "lg:col-span-5",
   },
 
-  // ── Row 2 ─────────────────────────────────────────────────────────────────
+  // ── Row 3 ─────────────────────────────────────────────────────────────────
   {
     id: "mozilla-hubs",
     type: "project",
@@ -101,7 +119,7 @@ export const BENTO_ITEMS: BentoItem[] = [
     colSpan: "lg:col-span-4",
   },
 
-  // ── Row 3 ─────────────────────────────────────────────────────────────────
+  // ── Row 4 ─────────────────────────────────────────────────────────────────
   {
     id: "vigilant-stream",
     type: "project",
@@ -117,7 +135,7 @@ export const BENTO_ITEMS: BentoItem[] = [
     featured: true,
   },
 
-  // ── Row 4 ─────────────────────────────────────────────────────────────────
+  // ── Row 5 ─────────────────────────────────────────────────────────────────
   {
     id: "chord",
     type: "project",
